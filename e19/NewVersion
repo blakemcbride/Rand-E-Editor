@@ -1,0 +1,80 @@
+#!/bin/bash
+# : System V
+#   1st para : version nb (default E19)
+#   2nd para : revision nb (default 58)
+#   3rd para : package name and package sub directory (default Rand)
+#   4th para : pacakage instalation directory (default /usr/local)
+#   5th para : can be use to provide the builder name in case of root loging
+
+#   March 2000 : new version by Fabien.Perriollat@cern.ch
+#       This file can be updated according to the actual bash path
+#       with the 'local.sh' script (or 'make local').
+
+#   ref to bask manual for string manipulation syntax
+rand_version=${1:-E19}
+release=${2:-58}
+
+pkgdir=${3:-Rand}
+pkgname=${pkgdir%/}
+targetdir=${4:-/usr/local}
+targetdir=${targetdir%/}
+bindir=$targetdir/$pkgname
+
+version=${rand_version##*[!0-9]}
+tag=${rand_version%%[0-9]*}
+# echo $version $tag
+
+ver=e.r.c
+string0="${tag}${version}.${release} built `/bin/date +"%d/%m/%y"` for `uname -s`"
+stringbld="`/bin/date +"%d/%m/%Y"`"
+string1b=`whoami`
+string1c=`hostname`
+if test -n "$5"; then
+    if test $string1b = "root";
+	then string1b=$5;
+    fi;
+fi
+if test $string1b = "perrioll"; then
+    string1="by <Fabien.Perriollat@cern.ch>";
+else
+    string1="by <$string1b@$string1c>"
+fi;
+
+# echo "short revision = -${version};" > $ver
+# echo "short subrev = ${release};" >> $ver
+# echo "static char whatstr[] = { '@', '(', '#', ')' } ;" >> $ver
+# echo 'char verstr[] = "\' >> $ver
+# echo "$string0  $string1"'\' >> $ver
+# /bin/echo '\\n";' >> $ver
+
+cat <<EOF >$ver
+/* $ver file : dynamicaly build by NewVersion shell script */
+/*      by `whoami` on $string1c */
+/*      `date` */
+
+short revision = -${version};
+short subrev = ${release};
+const char build_date [] = "\\
+$stringbld\\
+";
+
+
+const char verstr[] = "\\
+$string0  $string1\\
+";
+
+char rand_pkgname    [] = "$pkgname";
+
+char def_xdir_dir    [] = "$bindir";
+char def_recovermsg  [] = "$bindir/recovermsg";
+char def_xdir_kr     [] = "$bindir/kr.";
+char def_xdir_help   [] = "$bindir/helpkey";
+char def_xdir_crash  [] = "$bindir/Crashdoc";
+char def_xdir_err    [] = "$bindir/errmsg";
+char def_xdir_run    [] = "$bindir/run";
+char def_xdir_fill   [] = "$bindir/fill";
+char def_xdir_just   [] = "$bindir/just";
+char def_xdir_center [] = "$bindir/center";
+char def_xdir_print  [] = "$bindir/print";
+/* ---- EOF ---- */
+EOF

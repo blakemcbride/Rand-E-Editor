@@ -1,0 +1,212 @@
+#============================================================================#
+# Keyboard input escape sequences returned by xterm                          #
+# -------------------------------------------------                          #
+#                                                                            #
+#  File : /usr/local/doc/xterm/xterm_input.txt                               #
+#                                                                            #
+#  To display the current keycode to keysymbs translation : use xmodmap      #
+#       xmodmap -pm -pk                                                      #
+#                                                                            #
+#       See routine Input in input.c file from                               #
+#         xterm package source code (XFree86 package)                        #
+#                                                                            #
+# Compiled by Fabien Perriollat August 1996                                  #
+#============================================================================#
+
+
+/* keysymbs to data translation map (as defined in the source code) */
+   |------+----------------------------------------------------------------|
+   |key   |8                 9               A               B             |
+   |code  |012345678 9ABC DEF0123456789ABCDEF0123456789ABCDEF0123456789ABCD|
+   |------+----------------------------------------------------------------|
+   |num = | XXXXXXXX\tXXX\rXXXxxxxXXXXXXXXXXXXXXXXXXXXX*+,-./0123456789XXX=|
+   |apl = | ABCDEFGH IJKL MNOPQRSTUVWXYZ??????abcdefghijklmnopqrstuvwxyzXXX|
+   |------+----------------------------------------------------------------|
+
+   Cursor key
+   new version of xterm             old xterm version & nxterm
+   |------+---------|               |------+----|  cursor key :
+   |key   |5        |               |key   |5   |  key code 0xff50,
+   |code  |012345678|               |code  |1234|  0xff57, 0xff58
+   |------+---------|               |------+----|  are not defined !!
+   |cursor|HDACB  FE|               |cursor|DACB|
+   |------+---------|               |------+----|
+
+
+/* Escape sequence headers */
+	CSI : Esc [  = ^[[
+	SS3 : Esc O  = ^[O
+
+/*--------------------------------------------------------------------------*/
+
+/* Cursor control & motion */
+
+/* IsCursorKey : XK_Home <= keysymbs < XK_Select */
+    Sensitif to cursor mode (DECCKM) normal or alternate
+
+0xFF50  Home            CSI H           SS3 H   /* (1) */
+0xFF51  Left            CSI D           SS3 D   /* Move left, left arrow */
+0xFF52  Up              CSI A           SS3 A   /* Move up, up arrow */
+0xFF53  Right           CSI C           SS3 C   /* Move right, right arrow */
+0xFF54  Down            CSI B           SS3 B   /* Move down, down arrow */
+0xFF55  Prior           CSI 5~          CSI 5~  /* Prior, previous */
+0xFF55  Page_Up         CSI 5~          CSI 5~
+0xFF56  Next            CSI 6~          CSI 6~  /* Next */
+0xFF56  Page_Down       CSI 6~          CSI 6~
+0xFF57  End             CSI F           SS3 F   /* (1) EOL */
+0xFF58  Begin           CSI E           SS3 E   /* (1) BOL */
+
+(1) this key is not translated into escape sequence in old xterm version
+    and in nxterm.
+    see the note at the end for some way to go around this problem.
+
+
+/* Misc Functions */
+/* IsMiscFunctionKey : XK_Select <= keysymbs <= XK_Break
+
+0xFF60  Select          CSI 4~          CSI 4~  /* Select, mark */
+0xFF61  Print
+0xFF62  Execute                                 /* Execute, run, do */
+0xFF63  Insert          CSI 2~          CSI 2~  /* Insert, insert here */
+0xFF65  Undo                                    /* Undo, oops */
+0xFF66  Redo                                    /* redo, again */
+0xFF67  Menu            CSI 29~         CSI 29~
+0xFF68  Find                                    /* Find, search */
+0xFF69  Cancel                                  /* Cancel, stop, abort, exit */
+0xFF6A  Help            CSI 28~         CSI 28~ /* Help */
+0xFF6B  Break
+
+
+0xFF7E  Mode_switch                             /* Character set switch */
+0xFF7E  script_switch                           /* Alias for mode_switch */
+0xFF7F  Num_Lock
+
+
+/* Keypad Functions, keypad numbers cleverly chosen to map to ascii */
+/* ---------------------------------------------------------------- */
+    Sensitif to key pad mode (DECKPAM) numeric or application
+
+/* IsKeypadKey : XK_KP_Space <= keysymbs <= XK_KP_Equal */
+
+0xFF80  KP_Space        space           SS3 space       /* space */
+0xFF89  KP_Tab          \t              SS3 I
+0xFF8D  KP_Enter        \r              SS3 M   /* enter */
+
+
+/* IsPFKey : KP_F1 <= Keycode <= KP_F4 */
+
+0xFF91  KP_F1           SS3 P           SS3 P   /* PF1, KP_A, ... */
+0xFF92  KP_F2           SS3 Q           SS3 Q
+0xFF93  KP_F3           SS3 R           SS3 R
+0xFF94  KP_F4           SS3 S           SS3 S
+
+
+/* IsCursorKey : XK_Home <= keysymbs < XK_Select */
+/*      [KP_Home ... KP_Begin] --O--> [Home ... Begin] */
+
+0xFF95  KP_Home         CSI H           SS3 H           (1)
+0xFF96  KP_Left         CSI D           SS3 D
+0xFF97  KP_Up           CSI A           SS3 A
+0xFF98  KP_Right        CSI C           SS3 C
+0xFF99  KP_Down         CSI B           SS3 B
+0xFF9A  KP_Prior        CSI 5~          CSI 5~
+0xFF9A  KP_Page_Up      CSI 5~          CSI 5~
+0xFF9B  KP_Next         CSI 6~          CSI 6~
+0xFF9B  KP_Page_Down    CSI 6~          CSI 6~
+0xFF9C  KP_End          CSI F           SS3 F           (1)
+0xFF9D  KP_Begin        CSI E           SS3 E           (1)
+
+(1) this key is not translated into escape sequence in old xterm version
+    and in nxterm.
+    see the note at the end for some way to go around this problem.
+
+
+/* IsKeypadKey : XK_KP_Space <= keysymbs <= XK_KP_Equal */
+
+0xFF9E  KP_Insert       CSI 2~          CSI 2~
+0xFF9F  KP_Delete       CSI 3~          CSI 3~
+
+0xFFAA  KP_Multiply     *               SS3 j
+0xFFAB  KP_Add          +               SS3 k
+0xFFAC  KP_Separator    ,               SS3 l   /* separator, often comma */
+0xFFAD  KP_Subtract     -               SS3 m
+0xFFAE  KP_Decimal      .               SS3 n
+0xFFAF  KP_Divide       /               SS3 o
+
+0xFFB0  KP_0            0               SS3 p
+0xFFB1  KP_1            1               SS3 q
+0xFFB2  KP_2            2               SS3 r
+0xFFB3  KP_3            3               SS3 s
+0xFFB4  KP_4            4               SS3 t
+0xFFB5  KP_5            5               SS3 u
+0xFFB6  KP_6            6               SS3 v
+0xFFB7  KP_7            7               SS3 w
+0xFFB8  KP_8            8               SS3 x
+0xFFB9  KP_9            9               SS3 y
+
+0xFFBD  KP_Equal        =               SS3 X   /* equals */
+
+/* ---- End of IsKeypadKey ---- */
+
+
+/* Functions keys */
+/* -------------- */
+
+/* IsFunctionKey : XK_F1 <= keysymbs <= XK_F35 */
+
+0xFFBE  F1              CSI 11~         CSI 11~
+0xFFBF  F2              CSI 12~         CSI 12~
+0xFFC0  F3              CSI 13~         CSI 13~
+0xFFC1  F4              CSI 14~         CSI 14~
+0xFFC2  F5              CSI 15~         CSI 15~
+0xFFC3  F6              CSI 17~         CSI 17~
+0xFFC4  F7              CSI 18~         CSI 18~
+0xFFC5  F8              CSI 19~         CSI 19~
+0xFFC6  F9              CSI 20~         CSI 20~
+0xFFC7  F10             CSI 21~         CSI 21~
+0xFFC8  F11             CSI 23~         CSI 23~
+0xFFC9  F12             CSI 24~         CSI 24~
+0xFFCA  F13             CSI 25~         CSI 25~
+0xFFCB  F14             CSI 26~         CSI 26~
+0xFFCC  F15             CSI 28~         CSI 28~
+0xFFCD  F16             CSI 29~         CSI 29~
+0xFFCE  F17             CSI 31~         CSI 31~
+0xFFCF  F18             CSI 32~         CSI 32~
+0xFFD0  F19             CSI 33~         CSI 33~
+0xFFD1  F20             CSI 34~         CSI 34~
+
+/*--------------------------------------------------------------------------*/
+
+Include the following in XTerm app_defauts or in Xresources :
+-------------------------------------------------------------
+    See the Linux Keyboard Setup Mini-Howto (/usr/doc/HOWTO/mini/Key-Setup)
+	(this is true for nxterm,but not for the new version of xterm).
+files : /usr/X11R6/lib/X11/app-defaults/NXTerm
+	/usr/X11R6/lib/X11/app-defaults/XTerm
+
+
+! The Home and End are not defined in XTerm by default
+!   Overriding the translation for the key in the numerical key pad
+!       KP_Home, KP_End, KP_Delete
+!       (the right side key pad) disturbe the normal behaviour of these
+!       keys as defined by the shift modifier.
+!   The new translation must be applied only to shift and lock_shift
+!       case (see the leading ':' in the translation defintion).
+
+! my old translation :
+! *VT100.Translations: #override \n\
+!         <Key>Home:             string(0x1b) string("[1~")\n\
+!        :<Key>KP_Home:          string(0x1b) string("[1~")\n\
+!        :<Key>KP_End:           string(0x1b) string("[4~")\n\
+!         <Key>End:              string(0x1b) string("[4~")\n\
+!         <Key>Delete:           string(0x1b) string("[3~")
+
+! to be complient to the new version of xterm :
+*VT100.Translations: #override \n\
+	<Key>Home:             string(0x1b) string("[H")\n\
+       :<Key>KP_Home:          string(0x1b) string("[H")\n\
+       :<Key>KP_End:           string(0x1b) string("[F")\n\
+	<Key>End:              string(0x1b) string("[F")\n\
+       :<Key>Begin:            string(0x1b) string("[E")
+
+#=============================================================================

@@ -1,0 +1,84 @@
+#L1
+# does not emit anything
+#L2
+^["[193z":<cmd>
+#L3
+^["[194z":<mark>
+#L4
+^["[195z":<pick>
+#L5
+# does not emit anything
+#L6
+# does not emit anything
+#L7
+# does not emit anything
+#L8
+# does not emit anything
+#L9
+# does not emit anything
+#L10
+# does not emit anything
+#R1
+^["[208z":<-sch>
+#R2
+^["[209z":<+sch>
+#R3
+^["[210z":<replace>
+#R4
+^["[211z":<-page>
+#R5
+^["[212z":<+page>
+#R6
+^["[213z":<edit>
+#R7
+^["[214z":<open>
+#R8
+^["OA":<up>
+^["[A":<up>
+#R9
+^["[216z":<insmd>
+#R10
+^["OD":<left>
+^["[D":<left>
+#R11
+^["[218z":<home>
+#R12
+^["OC":<right>
+^["[C":<right>
+#R13
+^["[220z":<close>
+#R14
+^["OB":<down>
+^["[B":<down>
+#R15
+^["[222z":<dchar>
+#F1
+# does not emit anything
+#F2
+^["[225z":<split>
+#F3
+^["[226z":<join>
+#F4
+^["[227z":<ccase>
+#F5
+^["[228z":<chwin>
+#F6
+^["[229z":<-line>
+#F7
+^["[230z":<+line>
+#F8
+^["[231z":<wleft>
+#F9
+^["[232z":<wright>
+#BREAK
+^["[238z":<cmd>
+#BKSP
+^H:<left>
+#TAB
+^I:<+tab>
+#DEL
+<0177>:<bksp>
+#RETURN
+^M:<ret>
+#LINEFEED
+^J:<+line>

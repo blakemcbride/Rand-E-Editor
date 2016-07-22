@@ -1,0 +1,318 @@
+#F1
+^["[001q":<cmd>
+#Alt F1
+^["[037q":<cmd>
+#Ctl F1
+^["[025q":<cmd>
+#F2
+^["[002q":<insmd>
+#Alt F2
+^["[038q":<insmd>
+#Ctl F2
+^["[026q":<insmd>
+#F3
+^["[003q":<dchar>
+#Alt F3
+^["[039q":<dchar>
+#Ctl F3
+^["[027q":<dchar>
+#F4
+^["[004q":<replace>
+#Alt F4
+^["[040q":<replace>
+#Ctl F4
+^["[028q":<replace>
+#F5
+^["[005q":<edit>
+#Alt F5
+^["[041q":<chwin>
+#Ctl F5
+^["[029q":<edit>
+#F6
+^["[006q":<mark>
+#Alt F6
+^["[042q":<mark>
+#Ctl F6
+^["[030q":<mark>
+#F7
+^["[007q":<pick>
+#Alt F7
+^["[043q":<pick>
+#Ctl F7
+^["[031q":<pick>
+#F8
+^["[008q":<split>
+#Alt F8
+^["[044q":<join>
+#Ctl F8
+^["[032q":<join>
+#F9
+^["[009q":<fill>
+#Alt F9
+^["[045q":<justify>
+#Ctl F9
+^["[033q":<center>
+#F10
+^["[010q":<+word>
+#Alt F10
+^["[046q":<-word>
+#Ctl F10
+^["[034q":<dword>
+#F11
+^["[011q":<ccase>
+#Alt F11
+^["[047q":<caps>
+#Ctl F11
+^["[035q":<caps>
+#F12
+^["[012q":<help>
+#Alt F12
+^["[048q":<wp>
+#Ctl F12
+^["[036q":<cchar>
+#Print Screen
+^["[209q":<redraw>
+#Alt Print Screen
+^["[212q":<redraw>
+#Ctl Print Screen
+^["[211q":<redraw>
+#Scroll Lock
+^["[213q":<cmd>
+#Alt Scroll Lock
+^["[216q":<cmd>
+#Ctl Scroll Lock
+^["[215q":<cmd>
+#Pause
+^["[217q":<help>
+#Alt Pause and Ctl Pause send a break
+#
+#Insert
+^["[139q":<open>
+#Alt Insert
+^["[141q":<insmd>
+#Ctl Insert
+^["[140q":<insmd>
+#Home
+^["[H":<home>
+#Alt Home
+^["[145q":<home>
+#Ctl Home
+^["[144q":<home>
+#Page UP
+^["[150q":<-page>
+#Alt Page UP
+^["[153q":<-page>
+#Ctl Page UP
+^["[152q":<-page>
+#Delete
+^["[P":<close>
+#Alt Delete
+^["[M":<erase>
+#Ctl Delete
+^["[142q":<dchar>
+#End
+^["[146q":<int>
+#Alt End
+^["[149q":<int>
+#Ctl End
+^["[148q":<exit>
+#Page Down
+^["[154q":<+page>
+#Alt Page Down
+^["[157q":<+page>
+#Ctl Page Down
+^["[156q":<+page>
+#Up
+^["[A":<up>
+#Alt Up
+^["[163q":<-sch>
+#Ctl Up
+^["[162q":<-line>
+#Left
+^["[D":<left>
+#Alt Left
+^["[160q":<-word>
+#Ctl Left
+^["[159q":<wleft>
+#Down
+^["[B":<down>
+#Alt Down
+^["[166q":<+sch>
+#Ctl Down
+^["[165q":<+line>
+#Right
+^["[C":<right>
+#Alt Right
+^["[169q":<+word>
+#Ctl Right
+^["[168q":<wright>
+#Escape
+#Return , Enter, Ctl Enter
+^M:<ret>
+#Alt Enter
+^["[100q":<cmd>
+#Backspace
+^H:<bksp>
+#Tab
+^I:<+tab>
+#Alt Tab
+^["[073q":<+tab>
+#Ctl Tab
+^["[072q":<+tab>
+#Shift Tab
+^["[Z":<-tab>
+#Break
+<0177>:<bksp>
+#MISC
+^A:<cmd>
+# Invalid sequences
+^["[013q":<undef>
+^["[014q":<undef>
+^["[015q":<undef>
+^["[016q":<undef>
+^["[017q":<undef>
+^["[018q":<undef>
+^["[019q":<undef>
+^["[020q":<undef>
+^["[021q":<undef>
+^["[022q":<undef>
+^["[023q":<undef>
+^["[024q":<undef>
+^["[049q":<undef>
+^["[050q":<undef>
+^["[051q":<undef>
+^["[052q":<undef>
+^["[053q":<undef>
+^["[054q":<undef>
+^["[055q":<undef>
+^["[056q":<undef>
+^["[057q":<undef>
+^["[058q":<undef>
+^["[059q":<undef>
+^["[060q":<undef>
+^["[061q":<undef>
+^["[062q":<undef>
+^["[063q":<undef>
+^["[064q":<undef>
+^["[065q":<undef>
+^["[066q":<undef>
+^["[067q":<undef>
+^["[068q":<undef>
+^["[069q":<undef>
+^["[070q":<undef>
+^["[071q":<undef>
+^["[074q":<undef>
+^["[075q":<undef>
+^["[076q":<undef>
+^["[077q":<undef>
+^["[078q":<undef>
+^["[079q":<undef>
+^["[080q":<undef>
+^["[081q":<undef>
+^["[082q":<undef>
+^["[083q":<undef>
+^["[084q":<undef>
+^["[085q":<undef>
+^["[086q":<undef>
+^["[087q":<undef>
+^["[088q":<undef>
+^["[089q":<undef>
+^["[090q":<undef>
+^["[091q":<undef>
+^["[092q":<undef>
+^["[093q":<undef>
+^["[094q":<undef>
+^["[095q":<undef>
+^["[096q":<undef>
+^["[097q":<undef>
+^["[098q":<undef>
+^["[099q":<undef>
+^["[101q":<undef>
+^["[102q":<undef>
+^["[103q":<undef>
+^["[104q":<undef>
+^["[105q":<undef>
+^["[106q":<undef>
+^["[107q":<undef>
+^["[108q":<undef>
+^["[109q":<undef>
+^["[110q":<undef>
+^["[111q":<undef>
+^["[112q":<undef>
+^["[113q":<undef>
+^["[114q":<undef>
+^["[115q":<undef>
+^["[116q":<undef>
+^["[117q":<undef>
+^["[118q":<undef>
+^["[119q":<undef>
+^["[120q":<undef>
+^["[121q":<undef>
+^["[122q":<undef>
+^["[123q":<undef>
+^["[124q":<undef>
+^["[125q":<undef>
+^["[126q":<undef>
+^["[127q":<undef>
+^["[128q":<undef>
+^["[129q":<undef>
+^["[130q":<undef>
+^["[131q":<undef>
+^["[132q":<undef>
+^["[133q":<undef>
+^["[134q":<undef>
+^["[135q":<undef>
+^["[136q":<undef>
+^["[137q":<undef>
+^["[138q":<undef>
+^["[143q":<undef>
+^["[147q":<undef>
+^["[151q":<undef>
+^["[155q":<undef>
+^["[158q":<undef>
+^["[161q":<undef>
+^["[164q":<undef>
+^["[167q":<undef>
+^["[170q":<undef>
+^["[171q":<undef>
+^["[172q":<undef>
+^["[173q":<undef>
+^["[174q":<undef>
+^["[175q":<undef>
+^["[176q":<undef>
+^["[177q":<undef>
+^["[178q":<undef>
+^["[179q":<undef>
+^["[180q":<undef>
+^["[181q":<undef>
+^["[182q":<undef>
+^["[183q":<undef>
+^["[184q":<undef>
+^["[185q":<undef>
+^["[186q":<undef>
+^["[187q":<undef>
+^["[188q":<undef>
+^["[189q":<undef>
+^["[190q":<undef>
+^["[191q":<undef>
+^["[192q":<undef>
+^["[193q":<undef>
+^["[194q":<undef>
+^["[195q":<undef>
+^["[196q":<undef>
+^["[197q":<undef>
+^["[198q":<undef>
+^["[199q":<undef>
+^["[200q":<undef>
+^["[201q":<undef>
+^["[202q":<undef>
+^["[203q":<undef>
+^["[204q":<undef>
+^["[205q":<undef>
+^["[206q":<undef>
+^["[207q":<undef>
+^["[208q":<undef>
+^["[210q":<undef>
+^["[214q":<undef>
+^["[218q":<undef>
+^["[219q":<undef>

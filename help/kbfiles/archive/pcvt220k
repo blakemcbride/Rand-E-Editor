@@ -1,0 +1,199 @@
+# Modified version of /etc/e/kbfiles/vt200kbn
+# Fabien Perriollat PS-CO 22/12/1988
+#   to be used in conjuction with the extended VT220 keyboard mapping
+#   of the TNVT telnet PC program.
+
+# SET APPLICATIONS MODE
+<kbini>:^["="^["[2l"
+^["="^["[2l":<kbini>
+# EXIT APPLICATIONS MODE
+<kbend>:^[">"^["[2l"
+^[">"^["[2l":<kbend>
+
+#0
+^["Op":<mark>
+#Period
+^["On":<pick>
+#ENTER
+^["OM":<cmd>
+#1
+^["Oq":<-sch>
+#2
+^["Or":<+sch>
+#3
+^["Os":<replace>
+#4
+^["Ot":<-page>
+#5
+^["Ou":<+page>
+#Comma
+^["Ol":<edit>
+#6
+^["Ov":<-tab>
+#7
+^["Ow":<-line>
+#8
+^["Ox":<+line>
+#9
+^["Oy":<int>
+#Minus
+^["Om":<chwin>
+
+#PF1
+^["OP":<-word>
+#PF2
+^["OQ":<+word>
+#PF3
+^["OR":<open>
+#PF4
+^["OS":<insmd>
+
+#LEFT ARROW
+^["[D":<left>
+^["OD":<left>
+#RIGHT ARROW
+^["[C":<right>
+^["OC":<right>
+#UP ARROW
+^["[A":<up>
+^["OA":<up>
+#DOWN ARROW
+^["[B":<down>
+^["OB":<down>
+
+#F2 (Vaxstation only)
+^["[12~":<split>
+#F3 (Vaxstation only)
+^["[13~":<join>
+#F4 (Vaxstation only)
+^["[14~":<caps>
+#F5 (Vaxstation only)
+^["[15~":<wp>
+
+#No visible keys (from PC extended VT220 mapping)
+#   normal keys
+^["[7~":<home>
+^["[8~":<int>
+
+#   shift keys
+^["OE":<up>
+^["OF":<down>
+^["OG":<right>
+^["OH":<left>
+
+^["[a~":<open>
+^["[b~":<home>
+^["[c~":<-page>
+^["[d~":<close>
+^["[E~":<chwin>
+^["[F~":<+page>
+
+#   control keys
+^["OI":<-line>
+^["OJ":<+line>
+^["OK":<+word>
+^["OL":<-word>
+
+^["[G~":<open>
+^["[H~":<home>
+^["[I~":<-page>
+^["[J~":<erase>
+^["[K~":<chwin>
+^["[L~":<+page>
+
+^["[40~":<mark>
+^["[41~":<-sch>
+^["[42~":<+sch>
+^["[43~":<replace>
+^["[44~":<-page>
+^["[45~":<+page>
+^["[46~":<-tab>
+^["[47~":<-line>
+^["[48~":<+line>
+^["[49~":<int>
+^["[50~":<pick>
+^["[51~":<edit>
+
+#   alt keys
+^["OT":<-line>
+^["OU":<+line>
+^["OV":<wleft>
+^["OW":<wright>
+
+^["[M~":<open>
+^["[N~":<home>
+^["[O~":<-page>
+^["[P~":<dword>
+^["[Q~":<chwin>
+^["[R~":<+page>
+
+^["[60~":<mark>
+^["[61~":<-sch>
+^["[62~":<+sch>
+^["[63~":<replace>
+^["[64~":<-page>
+^["[65~":<+page>
+^["[66~":<-tab>
+^["[67~":<-line>
+^["[68~":<+line>
+^["[69~":<int>
+^["[70~":<pick>
+^["[71~":<edit>
+
+
+#F6
+^["[17~":<redraw>
+#F7
+^["[18~":<chwin>
+#F8
+^["[19~":<wleft>
+#F9
+^["[20~":<wright>
+#F10
+^["[21~":<home>
+#F11
+^["[23~":<split>
+#F12
+^["[24~":<join>
+#F13
+^["[25~":<caps>
+#F14
+^["[26~":<ccase>
+#F15
+^["[28~":<help>
+#F16
+^["[29~":<cmd>
+#F17
+^["[31~":<dword>
+#F18
+^["[32~":<erase>
+#F19
+^["[33~":<close>
+#F20
+^["[34~":<dchar>
+
+#FIND
+^["[1~":<+sch>
+#INSERT HERE
+^["[2~":<insmd>
+#REMOVE
+^["[3~":<dchar>
+#SELECT
+^["[4~":<pick>
+#PREV SCREEN
+^["[5~":<-page>
+#NEXT SCREEN
+^["[6~":<+page>
+
+#RETURN
+^M:<ret>
+#DEL
+<0177>:<bksp>
+^G:<home>
+#TAB
+^I:<+tab>
+^H:<-tab>
+^P:<wp>
+^R:<redraw>
+^U:<caps>
+^Z:<cchar>

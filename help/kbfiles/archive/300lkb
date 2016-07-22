@@ -1,0 +1,80 @@
+# SET APPLICATIONS MODE
+#kbini>:^["="
+#["=":<kbini>
+<kbini>:^["&f0a1k6d3L  sch-Oq &f0a2k6d3L  sch+Or &f0a3k6d3L  markOp &f0a4k6d3L  pickOn &f0a5k6d3L  lin-Ow &f0a6k6d3L  lin+Ox &f0a7k6d3L  replOs &f0a8k6d2L  alt.J &jB"
+^["&jB":<kbini>
+# EXIT APPLICATIONS MODE
+<kbend>:^["&j@"
+^[">":<kbend>
+#pf1
+^["Op":<mark>
+#pf2
+^["On":<pick>
+#select
+^["&P":<cmd>
+#pf3
+^["Oq":<-sch>
+#pf4
+^["Or":<+sch>
+#Prev
+^["V":<-page>
+#Next
+^["U":<+page>
+#pf5
+^["Ow":<-line>
+#pf6
+^["Ox":<+line>
+#pf7
+^["Oy":<int>
+#pf8
+^["Os":<replace>
+#Clear line
+^["K":<chwin>
+#Clear display
+^["J":<edit>
+#PAS DE TOUCHE
+^T:<-tab>
+#DELT LINE
+^["M":<close>
+#DOWN ARROW
+^["B":<down>
+#DELT CHAR
+^["P":<dchar>
+#LEFT ARROW
+^["D":<left>
+#HOME
+^["h":<home>
+#RIGHT ARROW
+^["C":<right>
+#INS LINE
+^["L":<open>
+#UP ARROW
+^["A":<up>
+#INS CHAR
+^["Q":<insmd>
+#PAS DE TOUCHE
+^X^L:<wleft>
+#PAS DE TOUCHE
+^X^H:<wright>
+#BACKSPACE
+^H:<left>
+#LINE FEED
+^J:<down>
+#RETURN
+^M:<ret>
+#DEL
+<0177>:<bksp>
+#TAB
+^I:<+tab>
+^A:<cmd>
+^B:<split>
+^C:<cmd>
+^D:<dword>
+^E:<-word>
+^N:<join>
+^P:<wp>
+^R:<redraw>
+^W:<+word>
+^U:<caps>
+^Y:<ccase>
+^Z:<cchar>

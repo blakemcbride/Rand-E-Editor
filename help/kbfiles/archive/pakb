@@ -1,0 +1,80 @@
+# SET APPLICATIONS MODE
+<kbini>:^["="
+^["=":<kbini>
+# EXIT APPLICATIONS MODE
+<kbend>:^[">"
+^[">":<kbend>
+#0
+^["Op":<mark>
+#Period
+^["On":<pick>
+#ENTER
+^["OM":<cmd>
+#1
+^["Oq":<-sch>
+#2
+^["Or":<+sch>
+#3
+^["Os":<replace>
+#4
+^["Ot":<-page>
+#5
+^["Ou":<+page>
+#Comma
+^["Ol":<edit>
+#6
+^["Ov":<-tab>
+#7
+^["Ow":<-line>
+#8
+^["Ox":<+line>
+#9
+^["Oy":<int>
+#Minus
+^["Om":<chwin>
+#DELT LINE
+^["OR":<close>
+#DOWN ARROW
+^["[B":<down>
+#DELT CHAR
+^["OS":<dchar>
+#LEFT ARROW
+^["[D":<left>
+#HOME
+^["[H":<home>
+#RIGHT ARROW
+^["[C":<right>
+#INS LINE
+^["OP":<open>
+#UP ARROW
+^["[A":<up>
+#INS CHAR
+^["OQ":<insmd>
+#PRT PAGE
+#does not emit anything
+#XMIT PAGE
+^["OZ":<wleft>
+#80/132
+^["[<9h":<wright>
+#BACKSPACE
+^H:<left>
+#LINE FEED
+^J:<down>
+#RETURN
+^M:<ret>
+#DEL
+<0177>:<bksp>
+#TAB
+^I:<+tab>
+^A:<cmd>
+^B:<split>
+^C:<cmd>
+^D:<dword>
+^E:<-word>
+^N:<join>
+^P:<wp>
+^R:<redraw>
+^W:<+word>
+^U:<caps>
+^Y:<ccase>
+^Z:<cchar>

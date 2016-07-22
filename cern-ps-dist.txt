@@ -1,0 +1,27 @@
+Directory where RAND is distributed at CERN PS. F.P. march 2000
+(info provided by N. de Metz Noblat, March 2000)
+
+$GROUP_DIR : /afs/cern.ch/group/pz
+
+To get the value of @sys (AFS file system variable) :
+'fs sysname'
+look also at 'fs help'
+
+1 - sources :
+    $GROUP_DIR/src
+
+2 - binaries :
+	$GROUP_DIR/.@sys/Rand
+    2.1 - Linux :
+	$GROUP_DIR/.i386_linux22/Rand
+	/ps/local/Linux/Rand
+    2.2 - AIX ( 4.2 or latter )
+	$GROUP_DIR/.rs_aix42/Rand
+	/ps/local/AIX/Rand
+    2.3 - Sparc Solaris ( 2.6 or latter : UNIX SysV flavor)
+	  or SunOS ( 5.6 or latter)
+	$GROUP_DIR/.sun4x_56/Rand
+	/ps/local/Solaris/Rand
+    2.4 - LynxOS for PowerPC( 3.1 or latter : Posix complient)
+	/ps/local/ppc/Rand
+	No AFS access

@@ -1,0 +1,102 @@
+# Modified version of /etc/e/kbfiles/universalkb for LINUX PC
+# B. Segal/CERN, 20 Feb. 2001
+# SET APPLICATIONS MODE
+<kbini>:^["="^["[2l"
+^["="^["[2l":<kbini>
+# EXIT APPLICATIONS MODE
+<kbend>:^[">"^["[2l"
+^[">"^["[2l":<kbend>
+#0
+^["Op":<open>
+#Period
+^["On":<dchar>
+#ENTER
+^["OM":<cmd>
+#1
+^["Oq":<close>
+#2
+^["Or":<+line>
+#3
+^["Os":<+page>
+#4
+^["Ot":<-sch>
+#5
+^["Ou":<ccase>
+#6
+^["Ov":<+sch>
+#7
+^["Ow":<home>
+#8
+^["Ox":<-line>
+#9
+^["Oy":<-page>
+#Div
+^["Oo":<close>
+#Mul
+^["Oj":<open>
+#Minus
+^["Om":<edit>
+#Plus
+^["Ok":<insmd>
+#HOME
+^["[1~":<home>
+#INSERT
+^["[2~":<open>
+#DELETE
+^["[3~":<dchar>
+#END
+^["[4~":<close>
+#PAGE UP
+^["[5~":<-page>
+#PAGE DOWN
+^["[6~":<+page>
+#F1
+^["OP":<cmd>
+#F2
+^["OQ":<pick>
+#F3
+^["OR":<mark>
+#F4
+^["OS":<pick>
+#F5
+^["[15~":<help>
+#F6
+^["[17~":<redraw>
+#F7
+^["[18~":<chwin>
+#F8
+^["[19~":<ccase>
+#F9
+^["[20~":<split>
+#F10
+^["[21~":<join>
+#F11
+^["[23~":<wleft>
+#F12
+^["[24~":<wright>
+#LEFT ARROW
+^["[D":<left>
+^["OD":<left>
+#RIGHT ARROW
+^["[C":<right>
+^["OC":<right>
+#UP ARROW
+^["[A":<up>
+^["OA":<up>
+#DOWN ARROW
+^["[B":<down>
+^["OB":<down>
+#RETURN
+^M:<ret>
+#DEL
+<0177>:<bksp>
+^G:<home>
+#TAB
+^I:<+tab>
+#BACKSPACE
+^H:<left>
+^P:<wp>
+^R:<redraw>
+^U:<caps>
+^Z:<cchar>
+^A:<cmd>

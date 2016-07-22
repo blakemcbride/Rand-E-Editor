@@ -1,0 +1,239 @@
+# Modified version of /etc/e/kbfiles/vt200kb
+# Julian Blake/CERN, 1985/12/2
+# Fabien Perriollat 1995 Oct 8 : Addition of F1
+#                   1998 Dec 17 : better handling of nxterm in linux
+#                   2000 Jan 11 : differenciate ctrl H <008> and Bksp <0177>
+#                                 for the zvt emulator in gnome-terminal
+#                   2001 Jan 10 : add comment on the new directive available : 'noX11'
+#-----------------------------------------------------------------------------
+# The "#!noX11" directive line can be used to prevent any call to X11 lib
+#   to get the keyboard mapping
+#-----------------------------------------------------------------------------
+# Linux specific case :
+# ---------------------
+# The following translation override is assumed to be done for nxterm
+#   application in "/usr/X11R6/lib/X11/app-defaults/NXTerm"
+
+# ! The Home and End are not defined in XTerm by default
+# !   Overriding the translation for the key in the numerical key pad
+# !       KP_Home, KP_End, KP_Delete, KP_Begin
+# !       (the right side key pad) disturbe the normal behaviour of these
+# !       keys as defined by the shift modifier.
+# !   The new translation must be applied only to shift and lock_shift
+# !       case (see the ':' in the translation defintion).
+#
+# XTerm*VT100.Translations: #override \n\
+#         <Key>Home:             string(0x1b) string("[H")\n\
+#        :<Key>KP_Home:          string(0x1b) string("[H")\n\
+#        :<Key>KP_End:           string(0x1b) string("[F")\n\
+#         <Key>End:              string(0x1b) string("[F")\n\
+#         <Key>Begin:            string(0x1b) string("[E")\n\
+#        :<Key>KP_Begin:         string(0x1b) string("[E")\n\
+#         <Key>Delete:           string(0x1b) string("[3~")
+#
+# To have a setting compatible between linux console, XTerm emulator
+#   family and gnome-terminal the backspace key must return a
+#   delete ('\0177') character and not a backspace ('\008') character
+#   This can be done by :
+#   - in gnome-terminal set : swap DEL/Backspace (in settings, preferences)
+#   - for XTerm emulator family set the ressource :
+#     XTerm*VT100.BackarrowKey: false
+
+# Expected keyboard X mapping :
+#
+# ! /usr/local/X11R6/lib/X11/xinit/Xmodmap.sf :
+# !   105 keys US keymaping. by Fabien.Perriollat@cern.ch Dec 98
+# !   This is an good compromise setting fo the rand editor.
+# !   A link to this file is expected to be defined in
+# !       "/usr/X11R6/lib/X11/xinit/.Xmodmap"
+# ! The keycode values are given for a XFree86 X11 server,
+# !     they must be replaced by the actual values of the X server vendor.
+#
+# ! keycode  22 = BackSpace
+# ! keycode  23 = Tab KP_Tab
+#
+# keycode  67 = F1  F11
+# keycode  68 = F2  F12
+# keycode  69 = F3  F13
+# keycode  70 = F4  F14
+# keycode  71 = F5  F15
+# keycode  72 = F6  F16
+# keycode  73 = F7  F17
+# keycode  74 = F8  F18
+# keycode  75 = F9  F19
+# keycode  76 = F10 F20
+#
+# ! keycode  77 = Num_Lock F17 Num_Lock
+# ! keycode  78 = Multi_key
+#
+# keycode  79 = KP_7 KP_Home KP_7 KP_Home
+# keycode  80 = KP_8 Up KP_8 Up
+# keycode  81 = KP_9 Prior KP_9 Prior
+# keycode  82 = KP_Subtract
+# keycode  83 = KP_4 Left KP_4 Left
+# keycode  84 = KP_5 Begin KP_5 Begin
+# keycode  85 = KP_6 Right KP_6 Right
+# keycode  86 = KP_Separator KP_Add KP_Separator KP_Add
+# keycode  87 = KP_1 KP_End KP_1 KP_End
+# keycode  88 = KP_2 Down KP_2 Down
+# keycode  89 = KP_3 Next KP_3 Next
+# keycode  90 = KP_0 Insert KP_0 Insert
+# keycode  91 = KP_Decimal KP_Delete KP_Decimal KP_Delete
+#
+# ! keycode  92 = 0x1007ff00
+#
+# ! keycode 107 = Delete
+
+#-----------------------------------------------------------------------------
+
+# SET APPLICATIONS MODE
+<kbinit>:^["="^["[2l"
+# <kbinit>:^["[?1h"
+
+# EXIT APPLICATIONS MODE
+<kbend>:^[">"^["[2l"
+
+#0
+^["Op":<mark>
+#Period
+^["On":<pick>
+#ENTER
+^["OM":<cmd>
+#1
+^["Oq":<-sch>
+#2
+^["Or":<+sch>
+#3
+^["Os":<replace>
+#4
+^["Ot":<-page>
+#5
+^["Ou":<+page>
+#Comma
+^["Ol":<edit>
+#KP Add
+^["Ok":<edit>
+#6
+^["Ov":<-tab>
+#7
+^["Ow":<-line>
+#8
+^["Ox":<+line>
+#9
+^["Oy":<int>
+
+#Minus
+^["Om":<fnavigate>
+#^["Om":<chwin>
+#PF1
+^["OP":<-word>
+#PF2
+^["OQ":<+word>
+^["Oo":<+word>
+#PF3
+^["OR":<tick>
+^["Oj":<tick>
+#^["OR":<open>
+#^["Oj":<open>
+#PF4
+^["OS":<fnavigate>
+# ^["OS":<insmd>
+
+#LEFT ARROW
+^["[D":<left>
+^["OD":<left>
+#RIGHT ARROW
+^["[C":<right>
+^["OC":<right>
+#UP ARROW
+^["[A":<up>
+^["OA":<up>
+#DOWN ARROW
+^["[B":<down>
+^["OB":<down>
+
+#F1
+^["[11~":<open>
+^["[[A":<open>
+#F2
+^["[12~":<close>
+^["[[B":<close>
+#F3
+^["[13~":<caps>
+^["[[C":<caps>
+#F4
+^["[14~":<ccase>
+^["[[D":<ccase>
+#F5
+^["[15~":<help>
+^["[[E":<help>
+#F6
+^["[17~":<redraw>
+#F7
+^["[18~":<chwin>
+#F8
+^["[19~":<wleft>
+#F9
+^["[20~":<wright>
+#F10
+^["[21~":<home>
+#F11
+^["[23~":<split>
+#F12
+^["[24~":<join>
+#F13
+^["[25~":<caps>
+#F14
+^["[26~":<ccase>
+#HELP F15
+^["[28~":<cmd><help>
+#DO F16
+^["[29~":<cmd>
+#F17
+^["[31~":<dword>
+#F18
+^["[32~":<erase>
+#F19
+^["[33~":<close>
+#F20
+^["[34~":<dchar>
+
+#HOME
+^["[1~":<home>
+^["[H":<home>
+^["OH":<home>
+#INSERT HERE
+^["[2~":<insmd>
+#REMOVE
+^["[3~":<dchar>
+#FIN
+^["[4~":<-word>
+^["[F":<-word>
+^["OF":<-word>
+#PREV SCREEN
+^["[5~":<-page>
+#NEXT SCREEN
+^["[6~":<+page>
+#BEGIN
+^["[E":<cmd><-page>
+^["OE":<cmd><-page>
+
+#RETURN
+^M:<ret>
+#DEL
+# <0177>:<bksp>
+<0177>:<dchar>
+
+^G:<home>
+
+#TAB
+^I:<+tab>
+^K:<-tab>
+^P:<wp>
+^R:<redraw>
+^U:<caps>
+^Z:<cchar>
+^A:<cmd>
+^W:<dword>
+^H:<bksp>
+^X^W:<chwin>

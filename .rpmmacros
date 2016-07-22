@@ -1,0 +1,50 @@
+# .rpmmacros to build in the user home space
+# Fabien Perriollat, CERN, Jan 2002
+
+# ref : rpm documentation in /usr/share/doc/rpm-4.0.2
+#     special attention to "macros" and "buildroot" doc files.
+#   use 'rpm --eval %{macro name}' too check the definition macro values.
+
+# it is assumed the following tree structure (for the Rand package)
+#   <buildroot> ... (where the package is installed)
+#   <userdir> -- src -- redhat |-- BUILD
+#                              |-- RPMS
+#                              |-- SOURSES (sources .tgz file)
+#                              |-- SPECS   (spec .spec file)
+#                              |-- SRPMS
+#  <root> is defined by %userhomedir macro
+#  usr    is defined by %_prefix rpm macro
+#  local, src, redhat are defined in .spec file
+#  BUILD, RPMS ... are implicitly define by rpm package
+#
+# The rpm option "--define 'macroname value'" can be use also to redefine some
+#   macro values (see the macros doc file).
+
+# if this file is not existing in $HOME/ or in /etc/rpm directory,
+#   or not imported .rpmrc (macrofiles: option definition)
+#   the package must be build by root user in file system root : /
+#   /usr/local/Rand ....
+#   /usr/src/redhat/....
+
+# The build root directory must be chossen such a way that it must be empty
+#   before install of the package. The various 'brp-strip' rpm shell
+#   scripts which are executed just before building the package files
+#   try to strip evry executable files in the build_root directory.
+#   see : /usr/lib/rpm/brp-redhat and the other /usr/lib/rpm/brp-* files.
+
+# Use 'rpm --showrc' to see how macros and values are set.
+
+# Where is the root to build packages :
+#  in the user home directory
+%userhomedir %(echo $HOME)
+
+#  or some where else
+# %userhomedir /tmp/perrioll
+
+# the default value of _prefix is defined (/usr) by the rpm macros :
+#   /usr/lib/rpm/macros
+%userdir %{?userhomedir:%{userhomedir}}%{_prefix}
+
+%_topdir %{userdir}/src/redhat
+
+%buildroot %{userhomedir}/tmp/rpm_buildroot

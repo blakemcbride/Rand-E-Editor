@@ -1,0 +1,198 @@
+<kbinit>:^["[80h"
+<kbend>:^["[80l"
+^["[80h":<kbinit>
+^["[80l":<kbend>
+^A:<cmd>
+<000>:<cmd>
+#E14  delete
+<0177>:<bksp>
+#D13 Line Feed
+^J:<+line>
+#C13 Carriage Return
+^M:<ret>
+#C48 Up Arrow
+^\:<up>
+#B47 Left Arrow
+^H:<left>
+#B48 Home
+^]:<home>
+#B49 Right Arrow
+^X:<right>
+#A48 Down Arrow
+^K:<down>
+#G9
+^["[00_":<mark>
+#G9 SHIFT
+^["[01_":<undef>
+#G10
+^["[02_":<pick>
+#G10 SHIFT
+^["[03_":<undef>
+#G11
+^["[04_":<undef>
+#G11 SHIFT
+^["[05_":<undef>
+#G12
+^["[06_":<undef>
+#G12 SHIFT
+^["[07_":<undef>
+#G13
+^["[08_":<undef>
+#G13 SHIFT
+^["[09_":<undef>
+#G47
+^["[10_":<dchar>
+#G47 SHIFT
+^["[11_":<undef>
+#G48
+^["[12_":<pick>
+#G48 SHIFT
+^["[13_":<undef>
+#G49
+^["[14_":<chwin>
+#G49 SHIFT
+^["[15_":<undef>
+#F47
+^["[16_":<+tab>
+#F47 SHIFT
+^["[17_":<-tab>
+#F48
+^["[18_":<undef>
+#F48 SHIFT
+^["[19_":<undef>
+#F49
+^["[20_":<cchar>
+#F49 SHIFT
+^["[21_":<undef>
+#E47
+^["[22_":<-line>
+#E47 SHIFT
+^["[23_":<undef>
+#E48
+^["[24_":<undef>
+#E48 SHIFT
+^["[25_":<undef>
+#E49
+^["[26_":<+line>
+#E49 SHIFT
+^["[27_":<undef>
+#D47
+^["[28_":<-page>
+#D47 SHIFT
+^["[29_":<undef>
+#D48
+^["[30_":<int>
+#D48 SHIFT
+^["[31_":<undef>
+#D49
+^["[32_":<+page>
+#D49 SHIFT
+^["[33_":<undef>
+#C47
+^["[34_":<wleft>
+#C47 SHIFT
+^["[35_":<undef>
+#C49
+^["[36_":<wright>
+#C49 SHIFT
+^["[37_":<undef>
+#A47
+^["[38_":<-tab>
+#A47 SHIFT
+^["[39_":<undef>
+#A49
+^["[40_":<+tab>
+#A49 SHIFT
+^["[41_":<undef>
+#G51
+^["[42_":<cmd>
+#G51 SHIFT
+^["[43_":<undef>
+#G52
+^["[44_":<undef>
+#G52 SHIFT
+^["[45_":<undef>
+#G53
+^["[46_":<undef>
+#G53 SHIFT
+^["[47_":<undef>
+#G54
+^["[48_":<undef>
+#G54 SHIFT
+^["[49_":<undef>
+#F51
+^["[50_":<close>
+#F51 SHIFT
+^["[51_":<undef>
+#F52
+^["[52_":<open>
+#F52 SHIFT
+^["[53_":<undef>
+#F52 CONTROL
+^["[54_":<undef>
+#F53
+^["[55_":<replace>
+#F53 SHIFT
+^["[56_":<undef>
+#F53 CONTROL
+^["[57_":<undef>
+#F54
+^["[58_":<erase>
+#F54 SHIFT
+^["[59_":<undef>
+#E51
+^["[60_":<split>
+#E51 SHIFT
+^["[61_":<undef>
+#E52
+^["[62_":<join>
+#E52 SHIFT
+^["[63_":<undef>
+#E53
+^["[64_":<+sch>
+#E53 SHIFT
+^["[65_":<undef>
+#E54
+^["[66_":<-sch>
+#E54 SHIFT
+^["[67_":<undef>
+#A51 Key 0
+^["[68_":<mark>
+#B51 Key 1
+^["[69_":<-sch>
+#B52 Key 2
+^["[70_":<+sch>
+#B53 Key 3
+^["[71_":<replace>
+#C51 Key 4
+^["[72_":<-page>
+#C52 Key 5
+^["[73_":<+page>
+#C53 Key 6
+^["[74_":<-tab>
+#D51 Key 7
+^["[75_":<-line>
+#D52 Key 8
+^["[76_":<+line>
+#D53 Key 9
+^["[77_":<int>
+#A53 Key .
+^["[78_":<pick>
+#C54 Key -
+^["[79_":<edit>
+#D54
+^["[80_":<chwin>
+#B54 Key Enter
+^["[81_":<cmd>
+#D99
+^["[82_":<insmd>
+#D99 SHIFT
+^["[83_":<undef>
+#C99
+^["[84_":<edit>
+#C99 SHIFT
+^["[85_":<undef>
+#E13
+^["[86_":<-line>
+#E13 SHIFT
+^["[87_":<undef>

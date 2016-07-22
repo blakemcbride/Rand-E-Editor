@@ -1,0 +1,16 @@
+#!/bin/sh
+# contributed by Bob Drzyzgula Gaithersburg, MD, USA
+#   bob@drzyzgula.org
+
+exec xterm -xrm " XTerm*VT100.Translations: #override \n\
+         <Key>Home:             string(0x1b) string(\"[H\")\n\
+        :<Key>KP_Home:          string(0x1b) string(\"[H\")\n\
+        :<Key>KP_End:           string(0x1b) string(\"[F\")\n\
+         <Key>End:              string(0x1b) string(\"[F\")\n\
+         <Key>Begin:            string(0x1b) string(\"[E\")\n\
+        :<Key>KP_Begin:         string(0x1b) string(\"[E\")\n\
+         <Key>Delete:           string(0x1b) string(\"[3~\")" \
+         -xrm "XTerm*VT100*BackarrowKey: false" \
+         -xrm "XTerm*VT100*decTerminalID: 220" \
+         -xrm "XTerm*VT100*oldXtermFKeys: true" \
+         -e /usr/local/bin/e $*

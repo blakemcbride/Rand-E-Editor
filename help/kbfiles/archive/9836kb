@@ -1,0 +1,69 @@
+##############################################
+###   Keyboard file for hp9836  terminal   ###
+###                                        ###
+###   Used by the rand editor              ###
+##############################################
+###   Th. von Eicken,  2nd jan 85          ###
+##############################################
+### cmd ( <000> is break key )
+^A:<cmd>
+<000>:<cmd>
+### control chars
+<0177>:<bksp>
+^J:<down>
+^M:<ret>
+^I:<+tab>
+### cursor movements
+^["A":<up>
+^["B":<down>
+^["C":<right>
+^["D":<left>
+^["h":<home>
+^H:<left>
+### screen movements
+^["T":<+line>
+^["S":<-line>
+^["U":<+page>
+^["V":<-page>
+### insert/delete
+^["L":<open>
+^["M":<close>
+^["Q":<insmd>
+^["P":<dchar>
+### search functions
+# f1
+^["p"<015>:<-sch>
+# f2
+^["q"<015>:<+sch>
+# f3
+^["r"<015>:<replace>
+# f4
+^["s"<015>:<int>
+### window movements
+# f5
+^["t"<015>:<chwin>
+# f6
+^["u"<015>:<edit>
+# f7
+^["v"<015>:<wleft>
+# f8
+^["w"<015>:<wright>
+### misc
+^B:<split>
+^N:<join>
+# clear tab
+^["2":<mark>
+# set tab
+^["1":<pick>
+# clear displ
+^["J":<undef>
+# test
+^["z":<undef>
+# ^home
+^["F":<undef>
+# backtab
+^["i":<-tab>
+# mem lock
+### Undefined functions :
+# ^Q:<cchar>
+# ^Y:<erase>

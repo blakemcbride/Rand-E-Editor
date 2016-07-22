@@ -1,0 +1,1933 @@
+
+
+
+		   A GUIDE TO THE RAND EDITOR ON UNIX SYSTEMS
+
+				   Gordon Lee
+
+			  Computer & Networks Division
+			      CERN, 1211 Geneva 23
+				  Switzerland
+
+
+      1.  INTRODUCTION
+
+
+	   The Rand editor, e, is a full screen editor running on  UNIX[1]
+      systems  at  CERN.   It is available on DEC Ultrix VAX and RISC sys-
+      tems, SUN SPARCStations, and on the  CRAY  X_MP  under  UNICOS.   e,
+      offers  a  straightforward  interface which makes it easy to use for
+      beginners and yet it provides many advanced editing features.  Edit-
+      ing  is  performed in a window on the screen and changes are made by
+      simply modifying the text displayed.  Editor operations  are  mapped
+      on  to  function keys by keyboard files and in this way e, can adapt
+      to different keyboard types.  e, treats the text in a file as a sim-
+      ple grid of character positions and commands move the editing window
+      both laterally and forward or backwards in the file.  e, can support
+      several windows and several files in the same session.
+
+
+	   This note gives an introduction to e, with emphasis on its  use
+      at  CERN  and covers most of the commonly used aspects.  A reference
+      ____________________
+	 [1]UNIX is a registered trademark of AT&T
+
+      description of e commands is given in [1].
+
+
+      1.1.  Terminology
+
+
+	   This section defines some generic terms used in the note.
+
+
+	   logical keys      Upper case text is used to represent  logical
+			     keys.   A  logical key is a particular editor
+			     function which is mapped on to  the  physical
+			     key  of  the terminal according to the tables
+			     in Appendix A.  Examples of logical keys  are
+
+			     ENTER, TAB, MARK, PICK, PAGE+.
+
+
+	   filename          A UNIX file name;  shell  metacharacters  are
+			     not  expanded.  The only exception to this is
+			     the ~ notation which  is  recognised  by  the
+			     editor.
+
+
+	   text              A string  of  characters  which  may  include
+			     blanks
+
+
+	   number            A decimal number in the range 1 - 32767
+
+
+	   cursormovement    Key sequences that result in  a  movement  of
+			     the cursor
+
+
+	   linearea          One or more entire lines. Specified either as
+			     a  decimal  number immediately followed by l,
+			     meaning lines, or as decimal number  followed
+			     by  p,  meaning paragraphs.  A paragraph is a
+			     section of text terminated by an  empty  line
+			     or end of file.
+
+
+	   area              A rectangular part of the  file,  defined  by
+			     MARK followed by cursor movements.
+
+
+	   Square brackets [ ]
+
+			     These surround  optional  items.   All  other
+			     character strings are to be taken literally.
+
+
+      2.  STARTING AN EDITING SESSION
+
+	   e is started from UNIX command level by typing:
+
+
+			     e  [ file  [altfile] ]
+
+
+	   File is the file to be edited and a second, alternate file  may
+      be  optionally specified.  If the file does not exist, it is created
+      after confirmation by the user.  This is the usual way to  create  a
+      new  text  file.   If  no  filename is given, e will resume the most
+      recent editing session in the directory, placing the cursor  at  its
+      previous position in the file.
+
+
+      2.1.  Leaving the Editor
+
+	   To quit the editor, the user must type:
+
+
+			       ENTER exit RETURN
+
+
+      where ENTER and RETURN refer to logical keys.  This  will  save  the
+      file  if any changes have been made and will create a backup copy of
+      the file with the name ,filename.  Bye may also be used as a synonym
+      for  exit.   The  exit  command  options,  editor  state  files, and
+      recovery possibities are described in section 7.
+
+
+      3.  THE KEYBOARD and FUNCTION KEYS
+
+
+      3.1.  Specifying the Terminal Type
+
+
+	   When  using  the  Rand  editor, the terminal type is found from
+      the TERM environment variable of the logged on user.  It is possible
+      to  override  the  use  of  TERM  by using the command line option -
+      terminal.  Appendix B lists all command line options.
+
+
+	   The mapping of the logical  keys  onto  physical  keyboard  can
+      depend  on  the  terminal type, but usually, it is determined by the
+      EKBFILE variable in the user's environment.  This variable specifies
+      a  file  which  defines  the keyboard mapping explicitly.  The table
+      below gives a  list  of  known  terminal  types  together  with  the
+      corresponding values for TERM and EKBFILE.  Users should ensure that
+      these variables are set to  sensible  values  in  their  environment
+      before using the editor.
+
+
+
+
+      tab(#), allbox, center; cb cb cb  l   l   l.   Terminal  type#  TERM
+
+      #Keyboard               file              (EKBFILE)              SUN
+
+      Sparcstation#sun/xterm#/usr/local/e/kbfiles/sunkb4     DEC     VT100
+
+
+      terminal#vt100#(no     keyboard    file    required)    DEC    VT220
+
+      terminal#vt200#/usr/local/e/kbfiles/vt200kbn  Pericom            #pa
+
+
+
+
+
+      3.2.  Normal Mode and Command Mode
+
+
+	   Input from the keyboard is interpreted as  either  text  to  be
+      written  to  the  file - normal mode or as a command to the editor -
+      command mode.  The editor is in normal mode when first  entered  and
+      is  switched  to command mode by pressing the ENTER key.  This posi-
+      tions the cursor outside the window at the bottom of the screen with
+      a prompt CMD: In this mode, a command may be typed on the input line
+      following the prompt.  The editor reverts to normal  mode  once  the
+      command has been executed.
+
+
+	   An example in the use of command mode is text string searching.
+      To  search  for  a  string  within  the file, the user first selects
+      ENTER.  The cursor is positioned on the command line  and  the  text
+      string  typed.  Pressing the SRCH+ key initiates file searching in a
+      forward direction; -SRCH searches backwards through the file.   Once
+      the  string  has been found, the cursor returns to the window at the
+      string position.
+
+
+      4.  BASIC EDITING OPERATIONS
+
+      4.1.  Window Movements
+
+
+	   Commands are available to move  the  editing  window  over  the
+      text,  both laterally as well as forwards and backwards in the file.
+      When cursor movements bring the cursor to the boundary of  the  win-
+      dow,  the  window  is  moved automatically such that it continues to
+      contain the cursor. Commands that result  in  cursor  movements  can
+      also imply a window displacement. For example, the sequence
+
+
+			  ENTER [ goto ] number RETURN
+
+
+      moves the cursor, and possibly the window, to line number.  The goto
+      is optional.
+
+
+	   Keys sequences for moving the window are listed in the  follow-
+      ing table.
+
+
+
+
+      #/usr/local/e/kbfiles/pakb tab(#), box, center; cb  s l | l.  Window
+
+      operation  keys  _  LIN+#move  the  window 5 lines down ENTER number
+
+      LIN+#move the window <number> lines down ENTER LIN+#move the  window
+
+      top  to  the  cursor  line  _  LIN-#move the window 5 lines up ENTER
+
+      number LIN-#move the window <number> lines up  ENTER  LIN-#move  the
+
+      window  bottom  to the cursor line _ PAGE+#move the window 1 page (1
+
+      window height) down ENTER  number  PAGE+#move  the  window  <number>
+
+      pages  down  ENTER  PAGE+#move  the  window to the end of the file _
+
+      PAGE-#move the window 1 page  (1  window  height)  up  ENTER  number
+
+      PAGE-#move  the window <number> pages up ENTER PAGE-#move the window
+
+      to the beginning of the file _ ENTER goto number#position the cursor
+
+      on the given line number _ WIN->#move the window 16 positions to the
+
+      right ENTER number WIN->#move the window  <number>  positions  right
+
+      WIN<-#move  the  window  16 positions to the left ENTER number WIN<-
+
+
+
+      4.2.  Cursor Movements
+
+	   The cursor is displaced one position in the four directions  by
+      the  UP, DOWN, LEFT, RIGHT keys.  The Linefeed key works as DOWN and
+      the Backspace as LEFT.  When these keys are preceded by ENTER,  they
+      move the cursor all the way to the boundary of the window.
+
+
+      #move the window <number> positions left tab(#), allbox, center;  cb
+
+      s  l   l.   Cursor  Movement Keys HOME#Moves the cursor to the upper
+
+      left corner of the window ENTER HOME#Moves the cursor to  the  lower
+
+      left  corner.   RETURN#Takes the cursor to the beginning of the next
+
+      line TAB#Moves to the next tabulator stop right  BTAB#Moves  to  the
+
+
+      4.3.  String Searching
+
+
+	   The SRCH+ and SRCH- keys search forward and  backwards  respec-
+      tively for a specified character string. The cursor is positioned at
+      the first character of the string.  The string is entered using  the
+      command mode mentioned earlier and is typed on the bottom line below
+      the window.  For example, to search forwards  for  the  string  code
+      optimisation, one types the sequence
+
+
+			 ENTER code optimisation SRCH+
+
+
+	   The search string can also be a word in the  window.   In  this
+      case,  it  is specified by placing the cursor at the first character
+      of the word and typing:
+
+				  ENTER SRCH+
+
+	   Pressing SRCH+ alone  will  search  for  the  latest  specified
+      string.
+
+
+      4.4.  Inserting and Deleting Characters
+
+
+      Deleting characters
+
+	   A character may be changed by simply typing the  new  character
+	   on  top  of  the  old. It may be deleted by the DELCH key.  The
+	   sequence ENTER DELCH deletes the remainder of the line from the
+	   present  cursor  position.   The  Delete key works similarly to
+	   DELCH but works backwards down the line.
+
+
+      Inserting characters
+
+	   Characters are inserted by first  pressing  the  INSCH  key  to
+	   switch  to  insert  mode.   In  this  mode,  the word INSERT is
+	   displayed at the bottom of the screen.  The  characters  to  be
+	   inserted may then be entered and they appear before the current
+	   cursor position.  Resetting  to  overstrike  mode  is  made  by
+	   pressing INSCH again.
+
+
+      4.5.  Inserting and Deleting lines
+
+
+	   Entire lines may be inserted, deleted, moved and copied by  use
+      of the INSLN and DELLN keys, combined with the ENTER key.  The table
+      below shows some possibilities.
+
+
+      next tabulator stop left tab(#), allbox, center; cb s l  l.  Insert-
+
+      ing  and  Deleting Lines DELLN#delete the line containing the cursor
+
+      ENTER number DELLN#delete <number>  lines  INSLN#creates  one  empty
+
+
+	   The  lines  deleted  by  the  most  recent DELLN are kept in an
+      internal buffer and can be recalled by  the  sequence  ENTER  DELLN.
+      This  places  them before the line containing the cursor.  This pro-
+      cedure may be used for moving lines from one place to another in the
+      file,  and  for  recovering  erroneous  deletes.   The recall can be
+      repeated until another delete action  is  done.   Using  INSLN,  the
+      lines are inserted before the current line.
+
+
+      4.6.  Copying lines of text
+
+
+	   Copying lines within a file makes use of the PICK key.  to copy
+      a  region  of  text into the pick buffer.  PICK does not delete text
+      and uses a separate internal buffer from the DELLN key.  The follow-
+      ing  example  shows  how  to  replicate 5 lines of text to two other
+      places in the file.
+
+
+      a)   The cursor is positioned at the first of the lines to be copied
+	   and ENTER 5 PICK typed.
+
+      b)   The cursor is then moved to the first destination position  and
+	   the  key  sequence  ENTER  PICK entered.  This reproduces the 5
+	   lines.  Remember that lines  are  inserted  before  the  cursor
+	   line.
+
+      c)   Moving the cursor to the next position and  typing  ENTER  PICK
+	   produces another copy of the lines.
+
+
+      5.  MORE ADVANCED EDITING OPERATIONS
+
+      5.1.  Working with Areas of Text
+
+	   An area is a rectangular part of a file.  It may be as small as
+      one  character  and  as large as the entire file.  One or more lines
+      are special cases of an area.  An area is specified by marking.  The
+      cursor  is  placed  in  one  corner  of the area and the key MARK is
+      pressed.  The cursor is moved to the opposite corner, possibly  out-
+      side  the  current window, and the area is now defined by the marked
+      cursor position and actual cursor position.  The line  level  opera-
+      tions described in earlier sections may also be performed on areas.
+
+
+      Deleting an area
+
+	   An area is deleted by the sequence MARK  cursormovement  DELLN.
+	   The  same  area  can be reinserted elsewhere by positioning the
+	   cursor at the upper left corner of the destination and pressing
+
+	   ENTER DELLN
+
+
+      Inserting areas
+
+	   An inserted area is a blank filled rectangle and  may  be  gen-
+	   erated the key sequence MARK cursormovement INSLN.  This is the
+	   most convenient way for indenting text with the Rand editor.
+
+
+      Copying an area
+
+	   The cursor is moved to one corner of the area and the MARK  key
+	   selected.   The  cursor  is moved to the opposite corner of the
+	   area and PICK key pressed.  The cursor is then moved to the the
+	   upper  left  corner  of  the  destination area and the sequence
+
+	   ENTER PICK given.
+
+
+      5.1.1.  Line areas
+
+
+	   Areas having the opposite  corners  in  the  same  column,  are
+      entire  lines.   They  are defined by vertical cursor movement only.
+      To delete several consecutive lines the cursor is positioned at  the
+      beginning  of  the  first  line  for  deletion  followed  by the key
+      sequence:
+
+			   MARK cursormovement DELLN
+
+      where cursormovement is a vertical movement to  the  last  line  for
+      deletion.
+
+
+      5.2.  Replacing Text within the File
+
+
+	   The replace command replaces one string by another in  an  area
+      or throughout the file.  The full syntax of the command is
+
+		  ENTER replace [option] /texta/textb/ RETURN
+
+
+	   The string texta is replaced by textb and the  delimiter  /  is
+      one  of  a set of possible delimiters (/ * ' " $ ?).  Replace may be
+      abbreviated to rep.  The replace action starts at the current cursor
+      position  and  continues  to  the end of the file unless an area has
+      been defined.  In the latter case, indicated by the word MARK at the
+      bottom of the screen, the action is limited to the marked area.
+
+      There are two options associated with the replace command:
+
+
+      show           Replacements are displayed  on  the  screen  as  they
+		     occur.
+
+
+      interactive    The interactive option  permits  individual  replace-
+		     ments  to  be  acknowledged one by one and skipped or
+		     processed.  When the string to be replaced is  found,
+		     the  cursor  is positioned but no replacement is done
+		     until the key REPL is pressed.  The  SRCH+  key  must
+		     then  be  pressed  for  the search to continue.  If a
+		     replacement is to be skipped  the  SRCH+  is  pressed
+		     instead of the REPL key.  Interactive can be abbrevi-
+		     ated to int.
+
+      The following example will replace all strings best  by  worst.   in
+      the marked area.
+
+	     MARK  cursormovement  ENTER  rep  /best/worst/  RETURN
+
+	   Writing -replace instead of replace makes the action  go  back-
+      wards  in  the  file.  In this case, one uses the SRCH- key with the
+      interactive option.
+
+
+      5.3.  Aborting a command
+
+	   A command may be aborted before completion by  simply  pressing
+      the  INT  key. A typical use might be to abort a search command in a
+      long file.
+
+
+      5.4.  Multiple Windows and Alternate Files
+
+      5.4.1.  Windows
+
+
+	   On invokation, e creates a window that matches the screen size.
+      Further  windows  may  be created by moving the cursor to the top or
+      the left edge of the current window, and keying ENTER window RETURN.
+      The  word  window  may be abbreviated w.  A new window positioned to
+      the right is created by placing the cursor at the top of the current
+      window,  a  new window below is created when the cursor is placed at
+      the left edge.  The new windows will begin on the same line  of  the
+      file as the current window.
+
+
+	   When there are several windows, editing functions are  relative
+      to  the  current  window.  Making a window current is acomplished by
+      pressing the CHWIN key.  CHWIN cycles through  the  windows  in  the
+      order  they were created, so with two windows, CHWIN merely switches
+      between them.  The current window can be  removed  by  the  sequence
+      ENTER -window RETURN but this has no effect on the file displayed in
+      the window.
+
+
+      5.4.2.  Alternate files
+
+	   Within a window, e can handle two  files  at  any  given  time.
+      Switching  between  the  files is made with the ALT key.  The second
+      file may be specified in the e command line or, from within the edi-
+      tor using the sequence
+
+			   ENTER edit filename RETURN
+
+	   With more than one window, it is possible to work with  several
+      files  up  to  a limit of 20 per session. However, there can only be
+      two files associated with any single window  although  they  can  be
+      different files in different windows.
+
+      5.5.  Transfering text between files
+
+	   The editor functions that move and copy text  inside  one  file
+      can be used to transfer text between files.  The text is picked from
+      the first file using PICK key.  The text is a  series  of  lines  or
+      region   of   text  which  is  defined  by  a  MARK  followed  by  a
+
+
+      CURSORMOVEMENT.  The ALT key switches to  the  alternate  file,  and
+      once  positioned,  ENTER  PICK can be used to insert the text in the
+      second file.
+
+
+      6.  OTHER MISCELLANEOUS COMMANDS
+
+      6.1.  Editing the previous command
+
+
+	   A command may be edited  by  using  the  character  level  keys
+      described in section 4.4.1.  The previous command may be recalled by
+      the key sequence
+
+
+				ENTER ENTER ALT
+
+
+	   It may then be edited and reissued to the editor.
+
+      6.2.  Saving the file
+
+
+	   The file being edited may be saved with  another  name  by  the
+      sequence
+
+			 ENTER save anotherfile RETURN
+
+
+	   All changes made in the current  session  are  applied  to  the
+      saved copy.  Intermediate saves can be useful before non interactive
+      replaces are made.
+
+      6.3.  Redrawing the screen
+
+	   Messages from users can intermix with the text on  the  screen.
+      In such cases the screen may be cleaned up by the sequence
+
+
+			      ENTER redraw RETURN
+
+      6.4.  Text formatting commands
+
+
+	   e contains inbuilt commands for simple  text  formatting.   The
+      most  useful  are  split  and  join  and on most keyboards, they are
+      assigned to function keys.
+
+
+	   split     This will split the current line in two.  The  second
+		     line  begins  with  the character at the cursor posi-
+		     tion.
+
+
+	   join      The next line is moved up behind the current.  If the
+		     cursor  is positioned within a line, the next line of
+		     text is joined at the end of the current line  rather
+		     than at the cursor position.  so that join never cuts
+		     out any text.  Where the cursor lies beyond  the  end
+		     of a line, the text is added at the end of the line.
+
+	   Other text formatting commands are shown in  the  table  below.
+      The  commands  assume  a  linelength of 75 characters and work on an
+      area if one is defined.  Otherwise center operates on one  line  and
+      justify works on paragraphs.
+
+
+      line ENTER  number  INSLN#creates  <number>  empty  lines.   tab(#),
+
+      allbox,   center;   cb    s   l   |  l.   Text  Formatting  Commands
+
+      center#Centers text on a line by line  basis,  fill#Moves  words  so
+
+      that lines are filled to the left margin justify#Fills and justifies
+
+
+      6.4.1.  Case conversion commands
+
+
+	   Two keys are available for character case conversion. Both keys
+      operate on an area which has been marked using the MARK key.
+
+
+	   CAPS      Converts lower case characters to upper case  in  the
+		     marked area.  Only characters (a-z) are affected.
+
+	   CCASE     Changes the case (lower --> upper and vice-versa)  of
+		     the characters in the marked area.
+
+
+      6.5.  Setting TAB positions
+
+
+	   Tabulators may be set different from the default  -  every  8th
+      position - by the sequence
+
+				ENTER tab RETURN
+
+
+      This sets a tabulator stop at  the  cursor.   -tab  instead  of  tab
+      removes the tabulator stop at the cursor position.
+
+
+      6.6.  Executing UNIX commands from within the editor
+
+
+	   There are 2 possibilities for executing  UNIX  system  commands
+      from within e.
+
+
+      6.6.1.  run command
+
+
+	   In this case, the standard output from a command is inserted in
+      the  file  at  the  cursor position.  When an area of full lines has
+      been defined by MARK, it is used as standard input for  the  command
+      and  is  replaced  by the standard output from the command.  The key
+      sequence to execute run is as follows:
+
+
+			ENTER  run  UNIXcommand  RETURN
+
+	   Replacing run by feed has the effect of  inserting  the  result
+      instead of replacing text.
+
+
+      6.6.2.  call command
+
+
+	   With the call command, the output from the  command  is  placed
+      below  the edit window.  Entering RETURN repaints the edit window to
+      resume the edit session.  The key sequence to  execute  call  is  as
+      follows:
+
+
+			ENTER  call  UNIXcommand  RETURN
+
+
+      7.  MORE ON ENTERING and EXITING
+
+	   The editor is called by the UNIX command
+
+
+			e [ filename  [ altfilename ] ]
+
+
+      where filename is the file  to  be  edited  and  altfilename  is  an
+      optional  alternate  file.   If  a  file  does  not exist it will be
+      created after confirmation by the user.  If the file has been edited
+      previously,  the  editor  may be called without any filename and the
+      cursor is placed at its last  position.   Otherwise  the  cursor  is
+      positioned at the beginning of the file.
+
+	   The editor is terminated by the command
+
+
+			   ENTER exit [option] RETURN
+
+
+	   Exit has the synonym bye which may be abbreviated to  b.   When
+      no  option  is  given,  the  changes are applied to the file(s).  If
+      option nosave - abbreviation n -  is  given  the  file(s)  are  left
+      unchanged, and the editing work is lost.
+
+
+      7.1.  Session abort and recovery
+
+	   An entire editing session may be aborted by the sequence:
+
+
+			    ENTER exit abort RETURN
+
+
+	   Exiting with the abort option  means  that  the  file  are  not
+      saved,  but  all editing actions are saved in a keystroke file.  The
+      next time the editor is entered, the edit session  may  be  repeated
+      using  this keystroke file.  This replay process is driven by a menu
+      displayed automatically by the editor and the user has the option to
+      display the replay editing sequence or to execute it in silent mode.
+
+	   In the case of an editor or UNIX system crash, the same  replay
+      mechanism  is  used  to recover the editing session.  It may also be
+      used to recover from a major editing error during  a  long  session.
+      In  this case, the replay sequence is interrupted prior to the edit-
+      ing error using the INT key.
+
+
+      References
+
+      text.
+	  [1] UNIX Programmer's Manual, Volume 1, Section 1, e(1).
+
+
+
+
+				   Appendix A
+
+
+
+		 Keyboard Layouts for use with the Rand Editor
+		 ________ _______ ___ ___ ____ ___ ____ ______
+
+
+
+
+	   The tables show the assignment of logical  keys  for  the  dif-
+
+      ferent keyboards supported by e.
+
+
+
+
+      SUN SPARCSTATION (Type-4 Keyboard)
+      ___ ____________  ____ _ ________
+
+
+	   TERM = sun or xterm EKBFILE = /usr/local/e/kbfiles/sunkb4
+		  ___ __ _____            ___ _____ _ _______ ______
+
+
+
+
+
+
+      tab(#), box, center, expand;
+
+      c  s  s  s  s  s  s  s  s  s  s  s  s  s  s  s  s
+
+      cbp+2  s  s  s  s  s  s  s  s  s  s s  s  s  s  s  s
+
+      c  s  s  s  s  s  s  s  s  s  s  s  s  s  s  s  s
+
+      cb | cb | cb | cb | cb | cb | cb | cb | cb | cb | cb | cb | cb | cb |
+							     \ cb | cb | cb
+
+      c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c | c
+
+      c  s  s  s  s  s  s  s  s  s  s  s  s  s  s  s  s
+
+      cb | cb | c  s  s  s  s  s  s  s  s  s  s  s | cb | cb | cb
+
+      c | c | c  s  s  s  s  s  s  s  s  s  s  s | c | c | c
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+      c  s  s  s  s  s  s  s  s  s  s  s  s  s  s  s  s
+
+      cb | cb | c  s  s  s  s  s  s  s  s  s  s  s | cb | cb | cb
+
+      c | c | c  s  s  s  s  s  s  s  s  s  s  s | c | c | c
+
+      c  s  s  s  s  s  s  s  s  s  s  s  s  s  s  s  s
+
+      cb | cb | c  s  s  s  s  s  s  s  s  s  s  s | cb | cb | cb
+
+      c | c | c  s  s  s  s  s  s  s  s  s  s  s | c | c | c
+
+      c  s  s  s  s  s  s  s  s  s  s  s  s  s  s  s  s
+
+      cb | cb | c  s  s  s  s  s  s  s  s  s  s  s | cb | cb | cb
+
+      c | c | c  s  s  s  s  s  s  s  s  s  s  s | c | c | c.
+
+       #
+
+      SUN SPARCSTATION (Type 4 keyboard)
+
+       #
+
+      _
+
+      L1#L2#F1#F2#F3#F4#F5#F6#F7#F8#F9#F10#F11#F12#R1#R2#R3
+
+	#CHWIN#MARK#SPLIT#JOIN#CCASE#CHWIN#LINE-#LINE+#<-WIN#WIN->#    #
+						       \#   #-SCH#+SCH#REPL
+
+      _
+
+       #
+
+      _
+
+      L3#L4#                 # R4  # R5  #R6
+
+      MARK#ALT#              #INSLN#DELLN#ALT
+
+      _
+
+       #
+
+      _
+
+      L5#L6#                 # R7  # R8  # R9
+
+	#PICK#               #HOME # UP  #-PAGE
+
+      _
+
+       #
+
+
+			       February 13, 1992
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+      _
+
+      L7#L8#                 # R10 # R11 # R12
+
+	#DELLN#              # LEFT# HOME#RIGHT
+
+      _
+
+      #
+
+      _
+
+      L9#L10#                # R13  # R14  # R15
+
+      +SCH#DELLN#            #HOME # DOWN#+PAGE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			       February 13, 1992
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+      The DEC VT100 terminal (TERM=vt100)
+      ___ ___ _____ ________  ____ _____
+
+
+
+
+      tab(#), allbox, center;
+      ___     ______  ______
+
+      cb s  s  s
+      __ _  _  _
+
+      c  c  c  c
+      _  _  _  _
+
+      c  c  c  c
+      _  _  _  _
+
+      c  c  c  c
+      _  _  _  _
+
+      c  c  c  c
+      _  _  _  _
+
+      c  s  c  c.
+      _  _  _  _
+
+      VT100 Keypad
+      _____ ______
+
+      INSLN#DELLN#INSLN#INSCH#
+      _____ _____ _____ _____
+
+      LINE-#LINE+#INTR#CHWIN#
+      ____  ____  ____ _____
+
+      PAGE-#PAGE+#TAB-#ALT#
+      ____  ____  ___  ___
+
+      SRCH-#SRCH+#REPL#     #
+      ____  ____  ____
+
+      MARK#PICK#CMD
+      ____ ____ ___
+
+
+	  There are no function keys for WIN<- and WIN-> on a VT100 -
+	  _____ ___ __ ________ ____ ___ ___   ___ ___   __ _ _____
+
+	     Ctrl-X Ctrl-H and Ctrl-X Ctrl-L must be used instead.
+	     ____ _ ____ _ ___ ____ _ ____ _ ____ __ ____ _______
+
+
+
+
+      The DEC VT220 and compatible terminals (TERM=vt200)
+      ___ ___ _____ ___ __________ _________  ____ _____
+
+
+	   TERM = vt200  or  vt200-w  for  132  column  mode.   EBKFILE  =
+		  _____      _____ _
+
+      /usr/local/e/kbfiles/vt200kbn
+       ___ _____ _ _______ ________
+
+
+
+
+      tab(#), box, center;
+      ___     ___  ______
+
+
+
+
+
+			       February 13, 1992
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+      cb | cb | cb | cb | cb | cb
+      __   __   __   __   __   __
+
+      c  | c  | c  | c  | c  | c
+      _    _    _    _    _    _
+
+      c  | c  | c  | c  | c  | c.
+      _    _    _    _    _    _
+
+      F15#F16#F17#F18#F19#F20
+      ___ ___ ___ ___ ___ ___
+
+      _
+
+      HELP#CMD#DELWD#ERASE#DELLN#DELCH#
+      ____ ___ _____ _____ _____ _____
+
+       # # # # # #
+
+
+
+
+
+      tab(#), box, center;
+      ___     ___  ______
+
+      cb | cb | cb | cb | cb | cb | cb | cb | cb
+      __   __   __   __   __   __   __   __   __
+
+      c | c | c | c | c | c | c | c | c
+      _   _   _   _   _   _   _   _   _
+
+      c | c | c | c | c | c | c | c | c.
+      _   _   _   _   _   _   _   _   _
+
+      F6#F7#F8#F9#F10#F11#F12#F13#F14
+      __ __ __ __ ___ ___ ___ ___ ___
+
+      _
+
+      REDRAW#CHWIN#WIN-#WIN+#HOME#SPLIT#JOIN#CCAP#CCASE
+      ______ _____ ___  ___  ____ _____ ____ ____ _____
+
+       # # # # # # # # #
+
+
+
+
+
+      tab(#), box, center;
+      ___     ___  ______
+
+      c | c | c | c | c | c | c | c
+      _   _   _   _   _   _   _   _
+
+      c | c | c | c | c | c | c | c
+      _   _   _   _   _   _   _   _
+
+      c | c | c | c | c | c | c | c
+      _   _   _   _   _   _   _   _
+
+      c | c | c | c | c | c | c | c
+      _   _   _   _   _   _   _   _
+
+      c | c | c | c | c | c | c | c
+      _   _   _   _   _   _   _   _
+
+      c | c | c | c | c | c | c | c
+      _   _   _   _   _   _   _   _
+
+
+
+
+			       February 13, 1992
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+      c | c | c | c | c | c | c | c
+      _   _   _   _   _   _   _   _
+
+      c | c | c | c | c | c | c | c
+      _   _   _   _   _   _   _   _
+
+      c | s | s | c | c | s | c | c
+      _   _   _   _   _   _   _   _
+
+      c | s | s | c | c | s | c | c.
+      _   _   _   _   _   _   _   _
+
+      SRCH+#INSCH#DELCH#        #WORD-#WORD+#INSLN#INSCH#
+      ____  _____ _____          ____  ____  _____ _____
+
+       # # # # # # # #
+
+      _
+
+      PICK#PAGE-#PAGE+##LINE-#LINE+#INTR#CHWIN#
+      ____ ____  ____   ____  ____  ____ _____
+
+       # # # # # # # #
+
+      _
+
+	   # UP #    ##PAGE-#PAGE+#TAB-#ALT#
+	     __        ____  ____  ___  ___
+
+       # # # # # # # #
+
+      _
+
+      LEFT#DOWN#RIGHT##SRCH-#SRCH+#REPL#     #
+      ____ ____ _____  ____  ____  ____
+
+       # # # # # # # #
+
+      _
+
+	   ##MARK#PICK#CMD
+	     ____ ____ ___
+
+       # # # # #
+
+
+
+
+
+
+	       DEL: DEL (delete previous character).   CMD DEL: >DEL.
+	       ___  ___  ______ ________ _________     ___ ___   ___
+	       CTRL-G: HOME.
+	       ____ _  ____
+	       CTRL-I (HT): TAB.
+	       ____ _  __   ___
+	       CTRL-P: PW (auto-fill mode toggle).
+	       ____ _  __  ____ ____ ____ ______
+	       CTRL-R: REDRAW.
+	       ____ _  ______
+	       CTRL-U: CCAP.
+	       ____ _  ____
+	       CTRL-Z: CTRLQ (control character prefix).
+	       ____ _  _____  _______ _________ ______
+
+
+
+
+
+
+
+			       February 13, 1992
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+      The PERICOM PA terminal (TERM=pa)
+      ___ _______ __ ________  ____ __
+
+
+	   TERM = pa and EKBFILE = /usr/local/e/kbfiles/pakb
+		  __                ___ _____ _ _______ ____
+
+
+
+
+
+
+
+
+      tab(#), allbox, center;
+      ___     ______  ______
+
+      cb s  s  s  c  cb s  s
+      __ _  _  _  _  __ _  _
+
+      c  c  c  c  c  c  c  c
+      _  _  _  _  _  _  _  _
+
+      c  c  c  c  c  c  c  c
+      _  _  _  _  _  _  _  _
+
+      c  c  c  c  c  c  c  c
+      _  _  _  _  _  _  _  _
+
+      c  s  c  c  c  c  c  c.
+      _  _  _  _  _  _  _  _
+
+      Numeric Pad##Function Pad#
+      _______ ___  ________ ___
+
+      LIN_#LIN+#INTR#CHWIN## #WORD-#WORD+#
+      ___  ___  ____ _____    ____  ____
+
+      PAGE-#PAGE+#BTAB#ALT##INSLN#UP#INSCH#
+      ____  ____  ____ ___  _____ __ _____
+
+      SRCH+#SRCH-#REPL#   ##LEFT#HOME#RIGHT#
+      ____  ____  ____      ____ ____ _____
+
+      MARK#PICK#ENTER##DELLN#DOWN#DELCH#
+      ____ ____ _____  _____ ____ _____
+
+
+
+
+
+
+
+      tab(#), allbox, center;
+      ___     ______  ______
+
+      cb  cb  cb  cb  cb  cb  cb  cb
+      __  __  __  __  __  __  __  __
+
+      c   c   c   c   c   c   c   c
+      _   _   _   _   _   _   _   _
+
+      c   s   s   s   s   s   s   s
+      _   _   _   _   _   _   _   _
+
+      cb  cb  cb  cb  cb  cb  cb  cb
+      __  __  __  __  __  __  __  __
+
+      c   c   c   c   c   c   c   c
+      _   _   _   _   _   _   _   _
+
+
+
+
+			       February 13, 1992
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+      c   s   s   s   s   s   s   s
+      _   _   _   _   _   _   _   _
+
+      cb  cb  cb  cb  cb  cb  cb  cb
+      __  __  __  __  __  __  __  __
+
+      c   c   c   c   c   c   c   c.
+      _   _   _   _   _   _   _   _
+
+      PF1#PF2#PF3#PF4#PF5#PF6#PF7#PF8
+      ___ ___ ___ ___ ___ ___ ___ ___
+
+      REDRAW#WIN-#WIN+#PAGE+#PAGE-#LINE+#LINE-#TAB
+      ______ ___  ___  ____  ____  ____  ____  ___
+
+	 #
+
+      PF9#PF10#PF11#PF12#PF13#PF14#PF15#PF16
+      ___ ____ ____ ____ ____ ____ ____ ____
+
+      BTAB#WORD+#WORD-#DWORD#HELP#BOX#SPLIT#JOIN
+      ____ ____  ____  _____ ____ ___ _____ ____
+
+	 #
+
+      PF17#PF18#PF19#PF20#PF21#PF22#PF23#PF24
+      ____ ____ ____ ____ ____ ____ ____ ____
+
+      CCASE#CAPS#FILL#JUST#CENTRE#ERASE#QUOTE#EXIT
+      _____ ____ ____ ____ ______ _____ _____ ____
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			       February 13, 1992
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+      Control Key usage with Basic Terminals
+      _______ ___ _____ ____ _____ _________
+
+
+	   When using e on terminals without function keys, it  is  neces-
+		      _
+
+      sary  to  use  control key sequences to represent logical keys.  The
+
+      notation ^H means control-H, and ^X-^U means control-X  followed  by
+
+      control-U.  The ALT entry gives you a choice of `^/' or `^_' because
+
+      one or the other or both will  not  work  on  some  terminals.   The
+
+      correspondence  table is in shown in 2 forms: the first is sorted by
+
+      editor function,   the second by control key sequence.
+
+
+
+
+      tab(#), allbox, center;
+      ___     ______  ______
+
+      cb s s s
+      __ _ _ _
+
+      c s s s
+      _ _ _ _
+
+      c c c c
+      _ _ _ _
+
+      l l l l.
+      _ _ _ _
+
+      Control Key usage with Basic Terminals: By logical key
+      _______ ___ _____ ____ _____ _________  __ _______ ___
+
+      =
+
+       #
+
+      Editor Function#Control Key(s)#Editor Function#Control Key(s)
+      ______ ________ _______ ___ _  ______ ________ _______ ___ _
+
+      (ext)    # ^X                #INSERT   # ^Z or ESC or ^[
+       ___        _                 ______      _ __ ___ __
+
+      +LINE    # ^F                #INT      # ^\
+       ____       _                 ___
+
+      +PAGE    # ^R                #JOIN     # ^N or ^X-^J
+       ____       _                 ____        _ __  _  _
+
+      +SRCH    # ^Y                #LEFT     # ^H
+       ____       _                 ____        _
+
+      +TAB     # ^I                #MARK     # ^U
+       ___        _                 ____        _
+
+      -LINE    # ^D                #OPEN     # ^O
+       ____       _                 ____        _
+
+      -PAGE    # ^E                #PICK     # ^P
+       ____       _                 ____        _
+
+
+
+
+			       February 13, 1992
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+      -SRCH    # ^T                #REPL     # ^X-^R or ^]
+       ____       _                 ____        _  _ __
+
+      -TAB     # ^X-^U             #RETURN   # ^M
+       ___        _  _              ______      _
+
+      ALT      # ^X-^A or ^_ or ^/ #RIGHT    # ^L
+      ___         _  _ __    __     _____       _
+
+      DEL      # ^C                #SPLIT    # ^B or ^X-^S
+      ___         _                 _____       _ __  _  _
+
+      CHG WIN  # ^X-^W             #TABS     # ^X-^T
+      ___ ___     _  _              ____        _  _
+
+      CLOSE    # ^V                #UP       # ^K
+      _____       _                 __          _
+
+      # ^A or NULL or ^@  #WIN LEFT # ^X-^H
+      ___         _ __ ____ __      ___ ____    _  _
+
+      CTRLCHAR # ^X-^C             #WIN RIGHT# ^X-^L
+      ________    _  _              ___ _____   _  _
+
+      DELCHAR  # ^W#  #
+      _______     _
+
+      DOWN     # ^J#  #
+      ____        _
+
+      ERASE    # ^X-^E or ^G#  #
+      _____       _  _ __  _
+
+      HOME     # ^^#  #
+      ____
+
+
+
+
+
+      tab(#), allbox, center;
+      ___     ______  ______
+
+      cb s s s
+      __ _ _ _
+
+      c s s s
+      _ _ _ _
+
+      c c c c
+      _ _ _ _
+
+      l l l l.
+      _ _ _ _
+
+      Control Key usage with Basic Terminals: By control key
+      _______ ___ _____ ____ _____ _________  __ _______ ___
+
+      =
+
+	#
+
+      Control key(s)#Editor Function#Control Key(s)#Editor Function
+      _______ ___ _  ______ ________ _______ ___ _  ______ ________
+
+      ^@   #  CMD      #^V   #  CLOSE
+	      ___        _      _____
+
+      ^A   #  CMD      #^W   #  DELCHAR
+       _      ___        _      _______
+
+      ^B   #  SPLIT    #^X   #  (ext)
+       _      _____      _       ___
+
+
+
+
+			       February 13, 1992
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+      ^C   #  DEL      #^Y   #  +SRCH
+       _      ___        _       ____
+
+      ^D   #  -LINE    #^Z   #  INSMODE
+       _       ____      _      _______
+
+      ^E   #  -PAGE    #^[   #  INSERT
+       _       ____             ______
+
+      ^F   #  +LINE    #^\  #   INT
+       _       ____             ___
+
+      ^G   #  ERASE    #^]   #  REPL
+       _      _____             ____
+
+      ^H   #  LEFT     #^^   #  HOME
+       _      ____              ____
+
+      ^I   #  +TAB     #^_   #  ALT
+       _       ___              ___
+
+      ^J   #  DOWN     #^X-^A#  ALT
+       _      ____       _  _   ___
+
+      ^K   #  UP       #^X-^C#  CTRLCHAR
+       _      __         _  _   ________
+
+      ^L   #  RIGHT    #^X-^E#  ERASE
+       _      _____      _  _   _____
+
+      ^M   #  RETURN   #^X-^H#  WIN LEFT
+       _      ______     _  _   ___ ____
+
+      ^N   #  JOIN     #^X-^J#  JOIN
+       _      ____       _  _   ____
+
+      ^O   #  OPEN     #^X-^L#  WIN RIGHT
+       _      ____       _  _   ___ _____
+
+      ^P   #  PICK     #^X-^R#  REPL
+       _      ____       _  _   ____
+
+      ^Q   #  BTAB     #^X-^S#  SPLIT
+       _      ____       _  _   _____
+
+      ^R   #  +PAGE    #^X-^T#  TABS
+       _       ____      _  _   ____
+
+      ^S   #  CHWIN    #^X-^U#  BTAB
+       _      _____      _  _   ____
+
+      ^T   #   -SRCH   #^X-^W#  CHWIN
+       _        ____     _  _   _____
+
+      ^U   #  MARK     #
+       _      ____
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			       February 13, 1992
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				   Appendix B
+
+
+
+
+
+
+
+		    Command Line Options for the Rand Editor
+		    _______ ____ _______ ___ ___ ____ ______
+
+
+
+
+      The full syntax of the command line to invoke the Rand editor is:
+
+
+
+		      e  [ -option ]  [ file  [altfile] ]
+		      _     ______      ____   _______
+
+
+      Option    Explanation
+      ______    ___________
+
+
+      -help     This causes a display of the currently  available  options
+       ____
+
+		and their values along with the version number of the edi-
+
+		tor.
+
+
+      -inplace  Option -inplace preserves file links  except  for  singly-
+       _______
+
+		linked  files.   From within the editor, link preservation
+
+		can be turned on and off, even for singly-linked files, by
+
+		the update command.
+
+
+      -terminal=termtype
+       ________ ________
+
+		Option -terminal=termtype  identifies  the  terminal  type
+
+		explicitly.   In  the  absence of the -terminal option the
+
+		terminal type is retrieved from the TERM environment vari-
+
+		able.
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+      -keyboard=termtype or -dkeyboard=termtype
+       ________ ________ __  _________ ________
+
+		Option -keyboard=termtype sets the keyboard type to "term-
+
+		type".   It  overrides  any "-terminal=" argument and also
+
+		any EKBD environment variable.
+
+
+      -dtermcap Option -dtermcap forces e to use the termcap entry for the
+       ________
+
+		terminal  identified  by  the  TERM  variable or -terminal
+
+		option, disregarding any applicable compiled-in code.
+
+
+      -notracks Option -notracks will allow you to  edit  a  file  without
+       ________
+
+		using  or  disturbing  the  work  files  (keys, state, and
+
+		change files) from your previous session.
+
+
+      -replay=filename
+       ______ ________
+
+		Option -replay=filename allows you to replay with a speci-
+
+		fied  keys  file,  where  "filename"  represents that keys
+
+		file.  Use -silent when the replay display is not desired.
+
+		The  message  "***replay completed" or "***replay aborted"
+
+		signals the end of the replay.  The <INT> key can be  used
+
+		to  stop  the replay short of completion.  Files .ec1* and
+
+		.ek1* must not be present if the replay is to work.
+
+
+      -norecover
+       _________
+
+		Option -norecover will open the edit session as defined by
+
+		the .es1 state file, ignoring any recovery processing of a
+
+		prior crashed or aborted session.
+
+
+      -regexp   Option -regexp enables regular expression pattern matching
+       ______
+
+		for searching and replacing.  This mode is also enabled by
+
+
+
+			       February 13, 1992
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+		the "re[gexp]" command.  In regular expression mode,  "RE"
+
+		is  displayed  at the bottom of the screen.  The command -
+
+		re[gexp] returns to non-regular expression mode.  The reg-
+		__ ____
+
+		ular  expressions  recognized  are essentially the same as
+
+		that for ed.
+			 __
+
+
+      -state=filename
+       _____ ________
+
+		Option -state=filename causes the  initial  state  of  the
+
+		editor  to  be  read from the indicated "state" file.  The
+
+		state file from  a  previous  e  session  (with  alternate
+					      _
+
+		files,  windows, cursor positioning, etc.) may be saved by
+
+		exiting, and renaming the state file (".es1").
+
+
+      -[no]stick
+	__ _____
+
+		Option -stick sets the behavior at  the  right  margin  to
+
+		stop  in  response to typing or a <RT ARROW>.  -nostick is
+
+		the default, and will automatically shift the window right
+
+		in response to text or <RT ARROW> key.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			       February 13, 1992
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				    CONTENTS
+
+
+
+
+
+
+      1 INTRODUCTION ................................................    1
+      _ ____________                                                     _
+	  1.1 Terminology ...........................................    2
+	  _ _ ___________                                                _
+      2 STARTING AN EDITING SESSION .................................    3
+      _ ________ __ _______ _______                                      _
+	  2.1 Leaving the Editor ....................................    3
+	  _ _ _______ ___ ______                                         _
+      3 THE KEYBOARD and FUNCTION KEYS ..............................    4
+      _ ___ ________ ___ ________ ____                                   _
+	  3.1 Specifying the Terminal Type ..........................    4
+	  _ _ __________ ___ ________ ____                               _
+	  3.2 Normal Mode and Command Mode ..........................    5
+	  _ _ ______ ____ ___ _______ ____                               _
+      4 BASIC EDITING OPERATIONS ....................................    5
+      _ _____ _______ __________                                         _
+	  4.1 Window Movements ......................................    6
+	  _ _ ______ _________                                           _
+	  4.2 Cursor Movements ......................................    7
+	  _ _ ______ _________                                           _
+	  4.3 String Searching ......................................    7
+	  _ _ ______ _________                                           _
+	  4.4 Inserting and Deleting Characters .....................    8
+	  _ _ _________ ___ ________ __________                          _
+	  4.5 Inserting and Deleting lines ..........................    9
+	  _ _ _________ ___ ________ _____                               _
+	  4.6 Copying lines of text .................................    9
+	  _ _ _______ _____ __ ____                                      _
+      5 MORE ADVANCED EDITING OPERATIONS ............................   10
+      _ ____ ________ _______ __________                                __
+	  5.1 Working with Areas of Text ............................   10
+	  _ _ _______ ____ _____ __ ____                                __
+	      5.1.1 Line areas ......................................   11
+	      _ _ _ ____ _____                                          __
+	  5.2 Replacing Text within the File ........................   12
+	  _ _ _________ ____ ______ ___ ____                            __
+	  5.3 Aborting a command ....................................   13
+	  _ _ ________ _ _______                                        __
+	  5.4 Multiple Windows and Alternate Files ..................   13
+	  _ _ ________ _______ ___ _________ _____                      __
+	      5.4.1 Windows .........................................   13
+	      _ _ _ _______                                             __
+	      5.4.2 Alternate files .................................   14
+	      _ _ _ _________ _____                                     __
+	  5.5 Transfering text between files ........................   14
+	  _ _ ___________ ____ _______ _____                            __
+      6 OTHER MISCELLANEOUS COMMANDS ................................   15
+      _ _____ _____________ ________                                    __
+	  6.1 Editing the previous command ..........................   15
+	  _ _ _______ ___ ________ _______                              __
+	  6.2 Saving the file .......................................   15
+	  _ _ ______ ___ ____                                           __
+	  6.3 Redrawing the screen ..................................   16
+	  _ _ _________ ___ ______                                      __
+	  6.4 Text formatting commands ..............................   16
+	  _ _ ____ __________ ________                                  __
+	      6.4.1 Case conversion commands ........................   17
+	      _ _ _ ____ __________ ________                            __
+	  6.5 Setting TAB positions .................................   17
+	  _ _ _______ ___ _________                                     __
+	  6.6 Executing UNIX commands from within the editor ........   18
+	  _ _ _________ ____ ________ ____ ______ ___ ______            __
+	      6.6.1 run command .....................................   18
+	      _ _ _ ___ _______                                         __
+	      6.6.2 call command ....................................   18
+	      _ _ _ ____ _______                                        __
+      7 MORE ON ENTERING and EXITING ................................   19
+      _ ____ __ ________ ___ _______                                    __
+	  7.1 Session abort and recovery ............................   19
+	  _ _ _______ _____ ___ ________                                __
+      References ....................................................   20
+      __________                                                        __
+      Appendix A - Keyboard Layouts for use with the Rand Editor ....    i
+      ________ _   ________ _______ ___ ___ ____ ___ ____ ______         _
+      Appendix B - Command Line Options for the Rand Editor .........  xii
+      ________ _   _______ ____ _______ ___ ___ ____ ______            ___
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+
+
+
+      A Guide to using the Rand Editor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                                               February 13, 1992
+ 
+ 
+ 
+ 

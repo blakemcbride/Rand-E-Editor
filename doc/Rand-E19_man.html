@@ -1,0 +1,2110 @@
+Content-type: text/html
+
+<HTML><HEAD><TITLE>Manpage of E</TITLE>
+</HEAD><BODY>
+<H1>E</H1>
+Section: Misc. Reference Manual Pages (1l)<BR>Updated: CERN 26th July 1985<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+e - Rand full screen text editor
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>e</B>
+
+[ options ]  [ file ] [ altfile ] [ other file ] ....
+<BR>
+
+<B>ned</B>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<I>e</I>
+
+invokes the Rand editor.
+The Rand editor is a full screen text editor with file editing in
+windows on the screen.
+Editing is done by typing directly into the window, and functions
+include &quot;cut&quot; and &quot;paste&quot; operations,
+simple formatting, and embedding UNIX command output in the
+file.
+<P>
+
+The parameter
+<I>file</I>
+
+denotes the file to be edited and
+<I>altfile</I>
+
+is an optional alternate file.
+With no file names given the editor will resume the latest
+editing session in the directory, if any,
+otherwise it will prompt for a file name.
+<P>
+
+<I>E</I>
+
+is a complete rewrite of the Rand editor
+<I>NED</I>
+
+The current version (E19) takes
+advantage of terminals that have the ability to
+do local insert/delete line.
+A reference manual
+<I>The Rand Editor, E, April 1984</I>
+
+is available on the PRIAM VAX using the
+notesfile scheme and the printdoc command.
+<A NAME="lbAE">&nbsp;</A>
+<H2>CHANGES</H2>
+
+<P>
+To see the last changes in version E19 : look at the output of &quot;help new&quot;
+command.
+<DL COMPACT>
+<DT>E19 (initial) changes include:<DD>
+<BR>
+
+- word processing mode (WP mode)
+<BR>
+
+- a delete word function
+<BR>
+
+- options to control the behavior at the right margin;
+<BR>
+
+- an alternate syntax for the &quot;goto&quot; command;
+<BR>
+
+- display of tab settings on the top border
+<BR>
+
+- left and right margin (width) settings on the bottom border
+<BR>
+
+- an option for invoking <I>E</I> with a previous state file
+<BR>
+
+- a new help facility;
+<BR>
+
+- improved support for the &quot;track&quot; command;
+<BR>
+
+- new commands for case conversion and reversal.
+<DT>E18 changes include:<DD>
+<BR>
+
+- support for regular expression searching and replacment
+<BR>
+
+- implementation of the
+<FONT SIZE="-1">+WORD</FONT>
+and
+<FONT SIZE="-1">-WORD</FONT>
+functions
+<BR>
+
+- a new <B>set</B> command to individually tailor
+various parameters
+<BR>
+
+- support for symbolic links
+<BR>
+
+- E now runs under UNIX System III and System V
+<BR>
+
+- commands that specify filenames (e.g., &quot;
+<FONT SIZE="-1">CMD:</FONT>
+e file&quot; expand a leading &quot;~&quot; to the appropriate home directory;
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<P>
+
+The currently available command line options are:
+<DL COMPACT>
+<DT><B>-help</B>
+
+<DD>
+<BR>
+
+This causes a display of the currently available
+options and their values along with the version number
+of the editor.
+<BR>
+
+Use this option to list the updated list of options.
+<DT><B>-bullets</B> or <B>-nobullets</B>
+
+<DD>
+<BR>
+
+Options -bullets and -nobullets forces border bullets on or off
+regardless of line speed or terminal type.  Line speeds of 1200
+baud and slower and some terminal types set border bullets off in
+the absence of these options.
+<DT><B>-inplace</B>
+
+<DD>
+<BR>
+
+Option -inplace preserves file links except for singly-linked
+files.  From within the editor, link preservation can be
+turned on and off, even for singly-linked files, by the update
+command.
+<DT><B>-terminal=termtype</B>
+
+<DD>
+<BR>
+
+Option -terminal=termtype identifies the terminal type explicitly.
+In the absence of the -terminal option the terminal type is retrieved
+from the
+<FONT SIZE="-1">TERM</FONT>
+environment variable.
+<DT><B>-keyboard=termtype or -dkeyboard=termtype</B>
+
+<DD>
+<BR>
+
+Option -keyboard=termtype sets the keyboard type to &quot;termtype&quot;.  It
+overrides any &quot;-terminal=&quot; argument and also any
+<FONT SIZE="-1">EKBD</FONT>
+environment variable.
+<DT><B>-dtermcap</B>
+
+<DD>
+<BR>
+
+Option -dtermcap forces
+<I>E</I>
+
+to use the termcap entry for the terminal
+identified by the
+<FONT SIZE="-1">TERM</FONT>
+variable or -terminal option, disregarding
+any applicable compiled-in code.
+<DT><B>-notracks</B>
+
+<DD>
+<BR>
+
+Option -notracks will allow you to edit a file without using or
+disturbing the work files (keys, state, and change files) from your
+previous session.
+<DT><B>-package=directory_name</B>
+
+<DD>
+<BR>
+
+Option -package=directory_name allows you to overwrite the build in
+default directory in which the Rand editor is looking to find
+service programs (like just, fill) and messages and information
+files (like Crashdoc, helpkey).
+In the absence of the -package option the Rand package directory is
+retrieved from the
+<FONT SIZE="-1">RAND_PACKG</FONT>
+environment variable.
+<DT><B>-replay=filename</B>
+
+<DD>
+<BR>
+
+Option -replay=filename allows you to replay with a specified keys
+file, where &quot;filename&quot; represents that keys file.  Use -silent when
+the replay display is not desired.  The message &quot;***replay
+completed&quot; or &quot;***replay aborted&quot; signals the end of the replay.
+The
+<FONT SIZE="-1">&lt;INT&gt;</FONT>
+key can be used to stop the replay short of completion.
+Files .ec1* and .ek1* must not be present if the replay is to
+work.
+<DT><B>-norecover</B>
+
+<DD>
+<BR>
+
+Option -norecover will open the edit session as defined by the .es1
+state file, ignoring any recovery processing of a prior crashed or
+aborted session.
+<DT><B>-regexp</B>
+
+<DD>
+<BR>
+
+Option -regexp enables regular expression
+pattern matching for searching
+and replacing.  This mode is also enabled by the &quot;re[gexp]&quot; command.
+In regular expression mode, &quot;RE&quot;
+is displayed at the bottom of the screen.  The command &quot;-re[gexp]&quot;
+returns to non-regular expression mode.
+The regular expressions recognized are
+essentially the same as that for <I>ed</I>.
+<DT><B>-state=filename</B>
+
+<DD>
+<BR>
+
+Option -state=filename causes the initial state of the editor to be
+read from the indicated &quot;state&quot; file.  The state file from a previous
+<I>E</I> session (with alternate files, windows, cursor positioning,
+etc.) may be saved by exiting, and renaming the state file (&quot;.es1&quot;).
+<DT><B>-dump_state_file</B>
+
+<DD>
+<BR>
+
+Option -dump_state_file display in a readable format the content of the
+&quot;state&quot; file. This state file can be explicitely define by the
+&quot;-state=filename&quot; option or is the state file which will be used
+when the editor is called without file name parameter.
+<DT><B>-[no]stick</B>
+
+<DD>
+<BR>
+
+Option -stick sets the behavior at the right margin to stop in response
+to typing or a &lt;RT ARROW&gt;.  -nostick is the default, and will automatically
+shift the window right in response to text or &lt;RT ARROW&gt; key.
+<DT><B>-nox11</B>
+
+<DD>
+<BR>
+
+Option -nox11 disables calls to X11 library during startup to get the keyboard
+mapping.
+<DT><B>-debug=[debug output file name]:[debug level]</B>
+
+<DD>
+<BR>
+
+Option -debug starts a debugging session, level = 0 : debugging suspended,
+level != 0 : debugging actif. Use the command 'set debuglevel x' to
+suspend, resume the debugging. When the debugging is suspended, the
+debugging output file is flused, and closed. When debugging is resumed,
+entering in a level != 0, the debugging output file is reopened for append.
+On starting the debugging session, the sizeof the major Rand data type
+(like Char, Flag, ...) is dumped on the debugging file.
+<DT><B>-version</B>
+
+<DD>
+<BR>
+
+Option -version display editor version informations. It is equivalent to
+the -help option.
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<H2>TERMINAL TYPES</H2>
+
+The terminal type is defined by the option -terminal if given,
+otherwise by the TERM environment variable.
+<P>
+
+The mapping of the logical keys onto physical terminal keys
+is also defined by the terminal type,
+unless the EKBD environment variable is set to
+standard or the option -keyboard=standard is given.
+This option overrides the EKBD variable, if any.
+<P>
+
+The instructions to drive the terminal may be coded in the editor
+or may be stored in the <A HREF="http://localhost/cgi-bin/man/man2html?5+termcap">termcap</A>(5) database.
+The parameter -dtermcap forces the use of <A HREF="http://localhost/cgi-bin/man/man2html?5+termcap">termcap</A>(5).
+<P>
+
+The following terminal types are recognised:
+<P>
+
+<DL COMPACT><DT><DD>
+Pericom                   - pa
+<BR>
+
+Pericom with 132 columns  - pa132
+<BR>
+
+Pericom graphics terminal - vt100
+<BR>
+
+DEC VT100 terminal        - vt100
+<BR>
+
+DEC VT220 terminal        - vt200
+<BR>
+
+DEC VT220 dense mode      - vt200-w
+<BR>
+
+SUN Workstation           - sun
+<BR>
+
+Newbury 7001              - nb7
+<BR>
+
+TANDBERG 2200             - tdv
+</DL>
+
+<P>
+
+where the right hand side gives the terminalid.
+
+
+<BR>
+
+
+<P>
+
+<I>Terminal tables</I>
+<P>
+
+
+The following tables show function key assignments on the
+different terminals.
+<BR>
+
+<P>
+<I>The Newbury 7001 terminal:</I>
+
+<P>
+
+The terminal type must be set to
+<I>nb7</I>
+
+and ned needs a keyboard file which is used
+to map the newbury &quot;function&quot; keys.
+This keyboard file is preferably set in the environment variable
+EKBFILE, currently the file is called
+<I>/etc/e/kbfiles/newbkb.</I>
+
+<P>
+
+Before the Newbury can be used it must be set up locally by the user.
+He must check the terminal status page.
+This is done by putting the terminal in EDIT mode, press the EDIT key.
+Then press the CONTROL and HOME keys at the same time.
+<P>
+
+The terminal must be set up with the following options:
+<BR>
+
+In the top status line: ... DELETE=Y;NL=NO...
+<BR>
+
+In the status page:
+<P>
+
+<BR>
+
+- All control characters allowed, no characters are underlined.
+<BR>
+
+- clear from home
+<BR>
+
+- clear on reset : yes
+<BR>
+
+- cursor skip : yes
+<BR>
+
+- attributes: protect = no, blink=no, underline=yes.
+<PRE>
+
+Using the above mentioned keyboard file, the ned editor works as
+the following control keys table shows:
+
+
++------------------------------+-------------------------+
+|   CLEAR     = ALT            |  ^F     = LINE+         |
+|   DELCHAR   = DELCH          |  ^G     = PICK          |
+|   INSCHAR   = INSCH          |  ^L     = PAGE+         |
+|   DELLINE   = DELLN          |  ^P     = PAGE-         |
+|   INSLINE   = INSLN          |  ^Q     = CTRLCHAR      |
+|   DEOL      = ERASE          |  ^R     = REPL          |
+|   SENDLINE  = JOIN           |  ^S     = SPLIT         |
+|   SENDPAGE  = PAGE+          |  ^T     = SCH+          |
+|   BREAK     = ENTER          |  ^U     = BTAB          |
+|   RUBOUT    = BSP            |  ^V     = MARK          |
+|   ESCAPE    = INT            |  ^W     = CHWIN         |
+|   TAB       = +TAB           |  ^Z     = JOIN          |
+|   ^C        = ENTER          |  ^^     = SCH+          |
+|   ^D        = LIN-           |  ^\     = SCH-         |
+|   ^E-^R     = WIN RIGHT      |  ^@     = ENTER         |
+|   ^E-^L     = WIN LEFT       |  ^H,&lt;-  = LEFT          |
+|   HOME,^]   = HOME           |  ^K,UP  = UP            |
+|   ^X,-&gt;     = RIGHT          |  ^J,DOWN= DOWN          |
++------------------------------+-------------------------+
+</PRE>
+
+
+<I>The TANDBERG 2200 terminal:</I>
+
+<P>
+
+The terminal type must be set to
+<I>tdv</I>
+
+and ned needs a keyboard file which is used
+to map the TANDBERG &quot;function&quot; keys.
+This keyboard file is preferably set in the environment variable
+EKBFILE, currently the file is called
+<I>/etc/e/kbfiles/tdvkb.</I>
+
+The assignments of the keys to editor functions as defined in the
+keyboard file for the TANDBERG terminal is shown in the following table:
+<PRE>
+
+
++---+----+----+----+----+----+----+----+----+----+----+----+----+----+---+
+|es | p1 | p2 | p3 | p4 | p5 | p6 | p7 | p8 |MARK|PICK| pa | se | wo |lo |
++---+----+----+----+----+----+----+----+----+----+----+----+----+----+---+
+|cps|  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  0 |  - |  ^ |-LN |DEL|
++---+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+|INS| ct |  q |  w | e  | r  | t  | y  | u  | i  | o  | p  | @  | [  |+LN|
++---+----+----+----+----+----+----+----+----+----+----+----+----+----+---+
+|ALT|lock| a  | s  | d  | f  | g  | h  | j  | k  | l  | ;  | :  | ]  |   |
++------+----+----+----+----+----+----+----+----+----+----+----+------+ cr|
+| shift|\   | z  | x  | c  | v  | b  | n  | m  | ,  | .  | /  | shift|   |
++------+----+----+----+----+----+----+----+----+----+----+----+------+---+
+
+                     +--------------------------------+
+                     |             space              |
+                     +--------------------------------+
+
+
++------+------+------+          +------+------+------+------+
+|DELCH | PICK |CHWIN |          | CMD  |      |      |      |
++------+------+------+          +------+------+------+------+
+|(B)TAB|      |QUOTE |          |DELLN |INSLN | REPL |ERASE |
++------+------+------+          +------+------+------+------+
+| LIN- |      | LIN+ |          |SPLIT | JOIN | SCH+ | SCH- |
++------+------+------+          +------+------+------+------+
+|PAGE- | INT  |PAGE+ |          | LIN- | LIN+ |  INT |CHWIN |
++------+------+------+          +------+------+------+------+
+|WIN &lt;-|  UP  |WIN -&gt;|          |PAGE- |PAGE+ | BTAB | ALT  |
++------+------+------+          +------+------+------+------+
+| LEFT | HOME |RIGHT |          | SCH- | SCH+ | REPL |      |
++------+------+------+          +------+------+------| CMD  |
+| BTAB | DOWN | TAB  |          |     MARK    | PICK |      |
++------+------+------+          +-------------+------+------+
+</PRE>
+
+
+<PRE>
+
+<I>Pericom terminal:</I>
+
+           Numeric keypad                      Function keypad
+
+  +-------+-------+-------+-------+       +-------+-------+-------+
+  | LIN-  | LIN+  | INT   | CHWIN |       |       | WIN&lt;- | WIN-&gt; |
+  +-------+-------+-------+-------+       +-------+-------+-------+
+  | PAGE- | PAGE+ | BTAB  |  ALT  |       | INSLN |   UP  | INSCH |
+  +-------+-------+-------+-------+       +-------+-------+-------+
+  | SCH-  | SCH+  | REPL  |  EN-  |       | LEFT  |  HOME | RIGHT |
+  +-------+-------+-------|  TER  |       +-------+-------+-------+
+  |      MARK     | PICK  |       |       | DELLN |  DOWN | DELCH |
+  +---------------+-------+-------+       +-------+-------+-------+
+
+
+                    PF function key assignments
+
+      pf1    pf2     pf3     pf4     pf5     pf6     pf7     pf8
+  +-------+-------+-------+-------+-------+-------+-------+-------+
+  |REDRAW | &lt;-WIN | WIN-&gt; | PAGE+ | PAGE- | LINE+ | LINE- | TAB   |
+  +-------+-------+-------+-------+-------+-------+-------+-------+
+
+     pf9     pf10    pf11    pf12    pf13    pf14    pf15    pf16
+  +-------+-------+-------+-------+-------+-------+-------+-------+
+  | BTAB  | WORD+ | WORD- | DWORD | HELP  | BOX   | SPLIT | JOIN  |
+  +-------+-------+-------+-------+-------+-------+-------+-------+
+
+     pf17    pf18    pf19    pf20    pf21    pf22    pf23    pf24
+  +-------+-------+-------+-------+-------+-------+-------+-------+
+  | CCASE | CAPS  | FILL  |JUSTIFY|CENTRE | ERASE | QUOTE | EXIT  |
+  +-------+-------+-------+-------+-------+-------+-------+-------+
+
+
+<I>DEC VT220 terminal:</I>
+
+   F6     F7     F8     F9     F10        F11    F12    F13    F14
+ +------+------+------+------+------+   +------+------+------+------+
+ |REDRAW|CHWIN |WIN-  |WIN+  |HOME  |   |SPLIT |JOIN  |CCAP  |CCASE |
+ |      |      |&gt;WIN- |&gt;WIN+ |&gt;HOME |   |      |      |      |      |
+ +------+------+------+------+------+   +------+------+------+------+
+
+
+    Help          Do                  F17     F18      F19      F20
+ +--------+-----------------+     +--------+--------+--------+--------+
+ | HELP   |      CMD        |     |DELWRD  |ERASE   |DELLN   |DELCH   |
+ |        |                 |     |-DELWRD |-ERASE  |-DELLN  |&gt;DELCH  |
+ +--------+-----------------+     +--------+--------+--------+--------+
+
+ +--------+--------+--------+     +--------+--------+--------+--------+
+ |SRCH+   | INSCH  | DELCH  |     | WORD-  | WORD+  | INSLN  | INSCH  |
+ |SRCHW+  |        | &gt;DELCH |     |        |        |        |        |
+ +--------+--------+--------+     +--------+--------+--------+--------+
+ | PICK   | PAGE-  | PAGE+  |     | LINE-  | LINE+  | INT    | CHWIN  |
+ | -PICK  | &gt;PAGE- | &gt;PAGE+ |     | &gt;LINE- | &gt;LINE+ |        |        |
+ +--------+--------+--------+     +--------+--------+--------+--------+
+ |        | UP     |              | PAGE-  | PAGE+  | TAB-   | ALT    |
+ |        | &gt;UP    |              | &gt;PAGE- | &gt;PAGE+ |        |        |
+ +--------+--------+--------+     +--------+--------+--------+--------+
+ | LEFT   | DOWN   | RIGHT  |     | SRCH-  | SRCH+  | REPL   |        |
+ | &gt;LEFT  | &gt;DOWN  | &gt;RIGHT |     | SRCHW- | SRCHW+ |        |        |
+ +--------+--------+--------+     +--------+--------+--------|  CMD   |
+ |                                |      MARK       | PICK   |        |
+ |                                |     -MARK       | -PICK  |        |
+ |                                +-----------------+--------+--------+
+
+
+DEL: DEL (delete previous character).   CMD DEL: &gt;DEL.
+CTRL-G: HOME.
+CTRL-I (HT): TAB.
+CTRL-P: PW (auto-fill mode toggle).
+CTRL-R: REDRAW.
+CTRL-U: CCAP.
+CTRL-Z: CTRLQ (control character prefix).
+
+<I>DEC VT100 terminal:</I>
+
+
+                     +-------+-------+-------+-------+
+                     | INSLN | DELLN | INSCH | DELCH |
+                     +-------+-------+-------+-------+
+                     | LIN-  | LIN+  | INT   | CHWIN |
+                     +-------+-------+-------+-------+
+                     | PAGE- | PAGE+ | BTAB  |  ALT  |
+                     +-------+-------+-------+-------+
+                     | SCH-  | SCH+  | REPL  |  EN-  |
+                     +---------------+-------|  TER  |
+                     |      MARK     | PICK  |       |
+                     +---------------+-------+-------+
+
+There are no function  keys for WIN&lt;- and WIN-&gt; on a VT100 terminal.
+        Use 'Ctrl-X Ctrl-H' and 'Ctrl-X Ctrl-L' instead.
+
+</PRE>
+
+
+<I>Rand editor standard keyboard</I>
+
+<P>
+
+The keyboard layout below is designed for
+terminals with no function keys.
+&quot;^H&quot; means control-H, and &quot;^X-^U&quot; means control-X
+followed by control-U.  The ALT entry gives you a choice of `^/' or
+`^_' because one or the other or both will not work on some terminals.
+Note that JOIN, SPLIT, and ERASE are now available as function keys.
+<PRE>
++-------------------------------------+----------------------+
+| (ext)         ^X                    |    ^@     CMD        |
+| +LINE         ^F                    |    ^A     CMD        |
+| +PAGE         ^R                    |    ^B     SPLIT      |
+| +SRCH         ^Y                    |    ^C     DEL        |
+| +TAB          ^I                    |    ^D     -LINE      |
+| -LINE         ^D                    |    ^E     -PAGE      |
+| -PAGE         ^E                    |    ^F     +LINE      |
+| -SRCH         ^T                    |    ^G     ERASE      |
+| -TAB          ^X-^U                 |    ^H     LEFT       |
+| ALT           ^X-^A or ^_ or ^/     |    ^I     +TAB       |
+| DEL           ^C                    |    ^J     DOWN       |
+| CHG WIN       ^X-^W                 |    ^K     UP         |
+| CLOSE         ^V                    |    ^L     RIGHT      |
+| CMD           ^A or NULL or ^@      |    ^M     RETURN     |
+| CTRLCHAR      ^X-^C                 |    ^N     JOIN       |
+| DELCHAR       ^W                    |    ^O     OPEN       |
+| DOWN          ^J                    |    ^P     PICK       |
+| ERASE         ^X-^E or ^G           |    ^Q     BTAB       |
+| HOME          ^^                    |    ^R     +PAGE      |
+| INSERT        ^Z or ESC or ^[       |    ^S     CHWIN      |
+| INT           ^\                    |    ^T     -SRCH      |
+| JOIN          ^N or ^X-^J           |    ^U     MARK       |
+| LEFT          ^H                    |    ^V     CLOSE      |
+| MARK          ^U                    |    ^W     DELCHAR    |
+| OPEN          ^O                    |    ^X     (ext)      |
+| PICK          ^P                    |    ^Y     +SRCH      |
+| REPL          ^X-^R or ^]           |    ^Z     INSMODE    |
+| RETURN        ^M                    |    ^[     INSERT     |
+| RIGHT         ^L                    |    ^\     INT        |
+| SPLIT         ^B or ^X-^S           |    ^]     REPL       |
+| TABS          ^X-^T                 |    ^^     HOME       |
+| UP            ^K                    |    ^_     ALT        |
+| WIN LEFT      ^X-^H                 |    ^X-^A  ALT        |
+| WIN RIGHT     ^X-^L                 |    ^X-^C  CTRLCHAR   |
+|                                     |    ^X-^E  ERASE      |
+|                                     |    ^X-^H  WIN LEFT   |
+|                                     |    ^X-^J  JOIN       |
+|                                     |    ^X-^L  WIN RIGHT  |
+|                                     |    ^X-^R  REPL       |
+|                                     |    ^X-^S  SPLIT      |
+|                                     |    ^X-^T  TABS       |
+|                                     |    ^X-^U  BTAB       |
+|                                     |    ^X-^W  CHWIN      |
++-------------------------------------+----------------------+
+</PRE>
+
+
+<A NAME="lbAH">&nbsp;</A>
+<H2>EDITOR FUNCTIONS</H2>
+
+<A NAME="lbAJ">&nbsp;</A>
+<H2><A NAME="lbAK">&nbsp;</A>
+<H2>Terminology</H2>
+
+</H2>
+
+<P>
+
+Keys denoted by upper case text are logical keys.
+A logical key has a unique meaning to the editor
+and is mapped on a physical key of a terminal
+as given in the tables above.
+<P>
+
+The following generic items are used:
+<DL COMPACT>
+<DT>filename<DD>
+UNIX file name, shell metacharacters are not expanded
+<DT>text<DD>
+<BR>
+
+string of characters, may include blanks
+<DT>number<DD>
+decimal number in the range 1 - 32767
+<DT>cursormovement<DD>
+key sequences that result in a movement of the cursor
+<DT>linearea<DD>
+one or more entire lines. Specified either as a decimal number
+immediately followed by l meaning lines,
+or as decimal number followed by p meaning paragraphs.
+A paragraph is terminated by an empty line or
+end of file.
+<DT>area<DD>
+<BR>
+
+a rectangular part of the file, defined by MARK followed
+by cursor movements.
+</DL>
+<P>
+
+[ and ] (square brackets) surround optional items.
+All other character strings are to be taken literally.
+
+<BR>
+
+
+<P>
+
+<I>Key functions</I>
+<P>
+
+
+<P>
+
+It is better to look at the output of &quot;help keyf&quot; for the updated
+description of the key functions.
+<P>
+
+ALT                   - swap current file and alternate file.
+<P>
+
+BACKSPACE             - move cursor one position left.
+<BR>
+
+ENTER BACKSPACE       - move cursor to left edge of window.
+<P>
+
+BOX                   - draw a box around the boundary of a
+<DL COMPACT><DT><DD>
+marked area
+</DL>
+
+<BR>
+
+MARK cursormovement BOX
+<P>
+
+BTAB                  - move cursor left to previous tabulator stop.
+<P>
+
+CAPS                  - convert lower case characters to upper case
+<DL COMPACT><DT><DD>
+in the marked area. Only characters (a-z) are affected.
+An area must be defined
+</DL>
+
+<P>
+
+CCASE                 - change case (lower -&gt; upper and vice-versa)
+<DL COMPACT><DT><DD>
+in the marked area.
+An area must be defined
+</DL>
+
+<P>
+
+CENTER                - center lines beginning at the cursor
+<DL COMPACT><DT><DD>
+If an area is marked, the marked area of integer lines
+is centered. Otherwise one line is centered.
+</DL>
+
+<P>
+
+CHWIN                 - make next window the current window.
+<BR>
+
+ENTER number CHWIN    - make window number the current window.
+<P>
+
+CONTROL X CONTROL C   - the next character entered will be entered as
+<DL COMPACT><DT><DD>
+a control character.
+</DL>
+
+<P>
+
+DELCH                 - delete the character at the cursor.
+<BR>
+
+ENTER DELCH           - delete all characters from the cursor to the
+<DL COMPACT><DT><DD>
+end of the line. The most recently deleted characters
+are kept in the erase buffer if not in insert state,
+otherwise in the close buffer.
+</DL>
+
+<P>
+
+DELETE                - if not in insert state:
+<DL COMPACT><DT><DD>
+write a blank space to the left of the cursor
+and move cursor one position left,
+<BR>
+
+in insert state:
+<BR>
+
+delete the character to the left of the cursor
+and move the cursor one position left.
+</DL>
+
+ENTER DELETE          - if not in insert state:
+<DL COMPACT><DT><DD>
+replace the part of the line to the left of the cursor
+by blanks, put the replaced text in the erase buffer,
+<BR>
+
+in insert state:
+<BR>
+
+delete the text to the left of the cursor
+and put the deleted text in the close buffer.
+</DL>
+
+<P>
+
+DELLN                 - delete the line with the cursor.
+<BR>
+
+ENTER number DELLN    - delete number lines starting at the cursor.
+<BR>
+
+MARK cursormovement DELLN
+<DL COMPACT><DT><DD>
+- delete the marked area.
+<DL COMPACT><DT><DD>
+The information deleted by the most recent DELLN
+is kept in the close buffer.
+</DL>
+
+</DL>
+
+ENTER DELLN           - insert the contents of the close buffer before
+<DL COMPACT><DT><DD>
+the line with the cursor if it is entire line(s),
+otherwise at the cursor position.
+</DL>
+
+<P>
+
+DOWN                  - move cursor one position down.
+<BR>
+
+ENTER DOWN            - move cursor to the bottom of window
+<P>
+
+DWORD                 - delete the current word or the next word
+<DL COMPACT><DT><DD>
+if the cursor is positioned on a space
+</DL>
+
+<P>
+
+ENTER                 - set command mode.
+<BR>
+
+ENTER ENTER ALT       - recall latest command.
+<P>
+
+ERASE                 - blank out (replace by spaces) lines or
+<DL COMPACT><DT><DD>
+marked area
+By default, the cursor line is blanked out.
+</DL>
+
+<P>
+
+EXIT                  - exit from the editor
+
+FILL                  - fill lines beginning at the cursor
+<DL COMPACT><DT><DD>
+Fill moves words so that each line is filled with words
+up to the right margin. Fill operates on paragraphs or on
+areas if one has been defined.
+</DL>
+
+<P>
+
+HELP                  - invoke the Rand editor help facility
+<P>
+
+HOME                  - move cursor to upper left corner of window.
+<BR>
+
+ENTER HOME            - move cursor to lower left corner of window.
+<P>
+
+INSCH                 - set and reset insert state.
+<DL COMPACT><DT><DD>
+In insert state the typed in characters are inserted
+in front of the character at the cursor.
+</DL>
+
+<P>
+
+INSLN                 - insert a line in front of the line with
+<DL COMPACT><DT><DD>
+the cursor.
+</DL>
+
+ENTER number INSLN    - insert number lines in front of the line with
+<DL COMPACT><DT><DD>
+the cursor.
+</DL>
+
+<BR>
+
+MARK cursormovement INSLN
+<DL COMPACT><DT><DD>
+- insert a rectangle of blanks, of the size
+<BR>
+
+<DL COMPACT><DT><DD>
+of the area,
+with the upper left
+corner at the cursor.
+</DL>
+
+</DL>
+
+<P>
+
+INT                   - interrupt the current command.
+<P>
+
+JOIN                  - join the next line to the current line
+<P>
+
+JUSTIFY               - justify text beginning at the cursor
+<DL COMPACT><DT><DD>
+If an area is specifed, justify operates on this area.
+Otherwise one paragraph is justified.
+The line width is that specified by the most recent center
+fill or justify command - default 75
+</DL>
+
+<P>
+
+LEFT                  - move cursor one position left.
+<BR>
+
+ENTER LEFT            - move cursor to the left edge of the window.
+<P>
+
+LINEFEED              - move cursor one position down.
+<BR>
+
+ENTER LINEFEED        - move cursor to the bottom of the window.
+<P>
+
+LIN-                  - move window 5 lines up.
+<BR>
+
+ENTER LIN-            - move window bottom to the cursor.
+<BR>
+
+ENTER number LIN-     - move window number lines up.
+<P>
+
+LIN+                  - move window 5 lines down.
+<BR>
+
+ENTER LIN+            - move window top to the cursor.
+<BR>
+
+ENTER number LIN+     - move window number lines down.
+<P>
+
+MARK cursormovement   - define an area.
+<DL COMPACT><DT><DD>
+The cursor positions before
+and after MARK are opposite corners of the rectangular area.
+Vertical cursor movement define an area of entire lines.
+</DL>
+
+ENTER MARK            - cancel marking.
+<P>
+
+QUOTE                 - enter a control character into the file
+<DL COMPACT><DT><DD>
+Pressing quote followed by a &lt;char&gt; causes
+control &lt;char&gt; to be entered into the file
+</DL>
+
+<P>
+
+PAGE-                 - move window one window up.
+<BR>
+
+ENTER PAGE-           - move window to the beginning of the file.
+<BR>
+
+ENTER number PAGE-    - move window number windows up.
+<P>
+
+PAGE+                 - move window one window down.
+<BR>
+
+ENTER PAGE+           - move window to the end of the file.
+<BR>
+
+ENTER number PAGE+    - move window number windows down.
+<P>
+
+PICK                  - put the line at the cursor into
+<DL COMPACT><DT><DD>
+the pick buffer.
+</DL>
+
+ENTER number PICK     - put number lines, beginning at the line with
+<DL COMPACT><DT><DD>
+the cursor, into the pick buffer.
+</DL>
+
+<BR>
+
+MARK cursormovement PICK
+<DL COMPACT><DT><DD>
+- put the area into the pick buffer.
+</DL>
+
+ENTER PICK            - insert the contents of the pick buffer before
+<DL COMPACT><DT><DD>
+the line with the cursor if it is entire line(s),
+otherwise at the cursor position.
+</DL>
+
+<P>
+
+REDRAW                - redraw the current screen
+
+<P>
+
+REPL                  - replace the string just found by the
+<DL COMPACT><DT><DD>
+string given with the most recent replace command.
+</DL>
+
+<P>
+
+RETURN                - move cursor to the beginning of the next
+<DL COMPACT><DT><DD>
+line in the window.
+</DL>
+
+<P>
+
+RIGHT                 - move cursor one position to the right.
+<BR>
+
+ENTER RIGHT           - if in text move cursor to first blank after
+<DL COMPACT><DT><DD>
+the text, otherwise to right edge of window.
+</DL>
+
+<P>
+
+SCH-                  - search backwards for the most recently
+<DL COMPACT><DT><DD>
+given text.
+</DL>
+
+ENTER SCH-            - search backwards for the word at the cursor.
+<DL COMPACT><DT><DD>
+Word cannot contain blanks.
+</DL>
+
+ENTER text SCH-       - search backwards for text.
+<DL COMPACT><DT><DD>
+If a range is in effect (set by the range command)
+the searches are limited to the range.
+</DL>
+
+<P>
+
+SCH+                  - search forwards for the most recently
+<DL COMPACT><DT><DD>
+given text.
+</DL>
+
+ENTER SCH+            - search forwards for the word at the cursor.
+<DL COMPACT><DT><DD>
+Word cannot contain blanks.
+<BR>
+
+</DL>
+
+ENTER text SCH+       - search forwards for text.
+<DL COMPACT><DT><DD>
+If a range is in effect (set by the range command)
+the searches are limited to the range.
+</DL>
+
+<P>
+
+SPLIT                 - split current line at the cursor position
+<DL COMPACT><DT><DD>
+into two lines
+</DL>
+
+<P>
+
+TAB                   - move cursor to the next tabulator stop right
+
+<P>
+
+WORD+                 - move cursor to the next word right
+
+<P>
+
+WORD-                 - move cursor to the previous word left
+
+<P>
+
+WIN-&gt;                 - move window 16 positions right.
+<BR>
+
+ENTER WIN-&gt;           - move left edge of window to the cursor.
+<BR>
+
+ENTER number WIN-&gt;    - move window number positions to the right.
+<P>
+
+WIN&lt;-                 - move window 16 positions left.
+<BR>
+
+ENTER WIN&lt;-           - move right edge of window to the cursor.
+<BR>
+
+ENTER number WIN&lt;-    - move window number positions to the left.
+<DL COMPACT><DT><DD>
+The left edge of the window cannot move
+further left than tby
+the beginning of the lines.
+</DL>
+
+<P>
+
+UP                    - move cursor one position up.
+<BR>
+
+ENTER UP              - move cursor to the top edge of the window.
+
+<A NAME="lbAL">&nbsp;</A>
+<H2>EDITOR COMMANDS</H2>
+
+<A NAME="lbAM">&nbsp;</A>
+<H2><P>
+
+</H2>
+
+<P>
+It is better to look at the output of &quot;help cmd&quot; command
+for the updated description of Editor Commands.
+<P>
+<BR>
+
+Commands are entered after the ENTER key is pressed
+and are executed when RETURN is pressed after the command
+has been typed in.
+In the following only the part between ENTER and RETURN is given.
+The command and its shortest possible abbreviation are given.
+All abbreviations down to the shortest are valid.
+<P>
+
+box       - draw a box around the boundary of a marked area
+<BR>
+
+bo          Simple horizontal or vertical lines can be drawn by
+<DL COMPACT><DT><DD>
+marking an area with a single character height or width.
+</DL>
+
+<P>
+
+bye       - same command as exit.
+<BR>
+
+b
+<P>
+
+caps &lt;marked area&gt;
+<BR>
+
+<DL COMPACT><DT><DD>
+- change lower case characters to upper case
+</DL>
+
+<DL COMPACT><DT><DD>
+Caps only changes the &quot;target text&quot;  - defined with the mark command
+Only characters a-z are affected
+</DL>
+
+<P>
+
+ccase &lt;marked area&gt;
+<BR>
+
+<DL COMPACT><DT><DD>
+- convert case upper -&gt; lower and vice-versa
+</DL>
+
+<DL COMPACT><DT><DD>
+The marked area is first defined by the <I>mark</I> command.
+</DL>
+
+<P>
+
+center [ width=number ] [ number ]
+<BR>
+
+ce        - center lines beginning at the
+<DL COMPACT><DT><DD>
+cursor such that there is the same amount of
+blanks on either side of the text.
+With no number parameter one line is centered,
+otherwise number lines are treated.
+With no number parameter and a marked area of integer lines
+the area is centered.
+The lines are centered individually.
+<BR>
+
+A line length of width is assumed, where width is the value specified
+with the most recent center, fill, or justify command (default is 75).
+Width may be abbreviated w.
+<BR>
+
+The most recently centered lines are put in the
+adjust buffer in their original form.
+</DL>
+
+<P>
+
+close [ number ] [ linearea ]
+<BR>
+
+clo       - delete lines or area.
+<DL COMPACT><DT><DD>
+Without parameters the cursor line is deleted.
+With number parameter number lines beginning at the cursor
+are deleted.
+With parameter linearea
+the specified number of paragraphs
+or lines are deleted.
+With a marked area and no parameters the area is deleted.
+<BR>
+
+The most recently deleted information is
+kept in the close buffer.
+</DL>
+
+<P>
+
+-close    - insert the contents of the close buffer.
+<BR>
+
+-cl         It is inserted before the cursor line for entire lines
+<DL COMPACT><DT><DD>
+otherwise at the cursor position.
+</DL>
+
+<P>
+
+delete    - delete the current file.
+<DL COMPACT><DT><DD>
+The file is deleted from the system on exit from the editor.
+The delete can be nullified by exit with a parameter.
+</DL>
+
+<P>
+
+dword     - delete word
+<BR>
+
+-dword      If the cursor is &quot;on&quot; a word, that word is deleted
+<BR>
+
+<DL COMPACT><DT><DD>
+otherwise the next word is deleted.
+<BR>
+
+The deleted word can be restored by -dword.
+</DL>
+
+<P>
+
+edit [ filename ]
+<BR>
+
+e         - edit the file filename.
+<BR>
+
+<DL COMPACT><DT><DD>
+Filename becomes the current file and the current file
+becomes the alternate file. The ALT key switches between them.
+<BR>
+
+<B>\dit -</B>
+
+remove the current file from the list of edited files if it was not modified,
+nor referenced.
+</DL>
+
+<P>
+
+erase [ number ] [ linearea ]
+<BR>
+
+er        - blank out lines or area.
+<DL COMPACT><DT><DD>
+Without parameters the cursor line is blanked out (replaced by blanks).
+With number parameter number lines beginning at the cursor
+are blanked out.
+With parameter linearea
+the specified number of paragraphs
+or lines are blanked out.
+With a marked area and no parameters the area is blanked out.
+<BR>
+
+The most recently blanked out information is
+kept in the erase buffer.
+</DL>
+
+<P>
+
+-erase    - insert the contents of the erase buffer.
+<BR>
+
+-e          It is inserted before the cursor line
+<DL COMPACT><DT><DD>
+for entire lines,
+otherwise at the cursor position.
+</DL>
+
+<P>
+
+exit | ex | bye | b [ nosave | quit | abort | dump ]
+<BR>
+
+<DL COMPACT><DT><DD>
+- Exit the editor.
+</DL>
+
+<DL COMPACT><DT><DD>
+The different exit options affect
+whether or not the editor updates the edited files
+or not, and whether the &quot;.e&quot; state files are changed.
+The following table give the complete exit story.
+
+
+<P>
+<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>Saves<TT>&nbsp;&nbsp;</TT>Update<TT>&nbsp;&nbsp;</TT>Remove<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>Remove<BR>
+<BR>
+
+<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>Files<TT>&nbsp;&nbsp;</TT>State<TT>&nbsp;&nbsp;&nbsp;</TT>Keys&nbsp;file<TT>&nbsp;&nbsp;</TT>Change file<BR>
+<BR>
+
+<P>
+exit<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> X<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> X<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> X<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> X<BR>
+<BR>
+
+exit nosave<TT>&nbsp;</TT> -<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> X<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> X<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> X<BR>
+<BR>
+
+exit quit<TT>&nbsp;&nbsp;&nbsp;</TT> -<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> -<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> X<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> X<BR>
+<BR>
+
+exit abort<TT>&nbsp;&nbsp;</TT> -<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> -<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> -<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> X<BR>
+<BR>
+
+exit dump<TT>&nbsp;&nbsp;&nbsp;</TT> -<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> -<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> -<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT> -<BR>
+
+
+<P>
+blot<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>adjust | close | erase | pick | run | box<BR>
+<BR>
+
+-blot<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>adjust | close | erase | pick | run | box<BR>
+<BR>
+
+cover<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>adjust | close | erase | pick | run | box<BR>
+<BR>
+
+insert<TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>adjust | close | erase | pick | run | box<BR>
+<BR>
+
+overlay<TT>&nbsp;&nbsp;&nbsp;&nbsp;</TT>adjust | close | erase | pick | run | box<BR>
+<BR>
+
+underlay<TT>&nbsp;&nbsp;&nbsp;</TT>adjust | close | erase | pick | run | box<BR>
+<P>
+
+All of these commands take the named buffer (one of
+adjust, close, erase, pick, run, or box) and add or
+merge it into the current file.
+<P>
+
+Insert takes the named buffer, moves the existing text
+to make room for it, and then inserts it at the
+current text location.  It is identical to the -pick
+command, except that now the other named buffers can
+also be inserted.
+<P>
+
+Cover places the named buffer over top of the text without
+moving anything.
+<P>
+
+Overlay is like cover, except that only the printing
+characters in the buffer clobber the original text.
+<P>
+
+Underlay is the reverse of overlay, i.e. the buffer covers
+only the non-printing characters of the original text.
+<P>
+
+Blot is like overlay except that positions in the file
+corresponding to printing characters in the buffer are erased.
+<P>
+
+-blot is like blot except that positions in the file
+corresponding to blanks in the buffer are erased.
+</DL>
+
+<P>
+
+fill [ width=number ] [ linearea ]
+<BR>
+
+fi        - fill lines, beginning at the cursor,
+<DL COMPACT><DT><DD>
+such that there is the same amount of blanks on either side of the text.
+<BR>
+
+With parameter linearea the specified lines
+or paragraphs are filled.
+With no linearea parameter one paragraph is filled.
+With no linearea parameter and a marked area of integer lines
+the area is filled.
+<BR>
+
+A line length of width is assumed, where width is the value specified
+with the most recent center, fill, or justify command (default 75).
+Width may be abbreviated w.
+<BR>
+
+The most recently filled lines are put in the
+adjust buffer in their original form.
+</DL>
+
+<P>
+
+feed [&lt;range&gt;] command-string
+<DL COMPACT><DT><DD>
+- start up a UNIX shell
+</DL>
+
+<DL COMPACT><DT><DD>
+A Unix shell is started with the command-string, and the
+text in &lt;range&gt; is supplied to the shell as the standard
+input.  Any results of the command are inserted before
+the first line in the range.
+</DL>
+
+<P>
+
+goto [ b | e | number | rbeginning | rend ]
+<BR>
+
+g         - position cursor on line specified.
+<DL COMPACT><DT><DD>
+Parameter number specifies a sequential line number, parameter b
+means begin of file, parameter e means end of file, and no parameter
+means begin of file.
+<BR>
+
+Rbeginning and rend specify the beginning and end of a range
+defined by the range command. They are valid even if the range has
+been turned off. Their shortest abbreviations are rb and re,respectively.
+</DL>
+
+<P>
+
+insert [ adjust | close | erase | pick | run | box ]
+<BR>
+
+i         - insert contents of specified buffer at cursor position.
+<BR>
+
+<DL COMPACT><DT><DD>
+<BR>
+
+The buffers are filled by the following commands:
+<BR>
+
+adjust - center, fill, justify.
+<BR>
+
+close  - DELLN, close, and when in insert
+<DL COMPACT><DT><DD>
+state also:
+<BR>
+
+erase, ENTER DELCH, ENTER DELETE.
+<BR>
+
+Lost text from join.
+</DL>
+
+erase  - erase, and when in insert state also:
+<DL COMPACT><DT><DD>
+ENTER DELCH and ENTER DELETE.
+</DL>
+
+<BR>
+
+pick   - PICK, pick.
+<BR>
+
+run    - run.
+<BR>
+
+box    - box is a buffer that always
+<DL COMPACT><DT><DD>
+contains a box around the previously
+marked area.
+</DL>
+
+</DL>
+
+<P>
+
+join      - join the next line to the current.
+<DL COMPACT><DT><DD>
+The first non blank character of the next line is placed after the last
+non blank character on the current line, or at the cursor if
+it is farther to the right.
+<BR>
+
+This mode of operation may be overridden by marking the
+positions on the two lines that should be joined.
+Any lost text is put in the close buffer.
+</DL>
+
+<P>
+
+justify [ width=number ] [ linearea ]
+<BR>
+
+ju        - justify lines, beginning at the cursor such that the last
+<DL COMPACT><DT><DD>
+word on the lines ends at the right margin.
+<BR>
+
+With parameter linearea the specified lines
+or paragraphs are justified.
+With no linearea parameter one paragraph is justified.
+With no linearea parameter and a marked area of integer lines
+the area is justified.
+<BR>
+
+A line length of width is assumed, where width is the value specified
+with the most recent center, fill, or justify command (default 75).
+Width may be abbreviated w.
+<BR>
+
+The most recently justified lines are put in the
+adjust buffer in their original form.
+</DL>
+
+<P>
+
+name filename
+<BR>
+
+<DL COMPACT><DT><DD>
+- rename the current file
+<BR>
+
+</DL>
+
+<DL COMPACT><DT><DD>
+The file being edited is renamed. The renaming takes effect when the
+editor is exited normally. It may be nullified by exiting with a
+parameter.
+</DL>
+
+<P>
+
+open [ number ] [ linearea ]
+<BR>
+
+op        - insert lines or area.
+<DL COMPACT><DT><DD>
+Without parameters an empty line is inserted before the cursor line.
+With number parameter, number empty lines are inserted before the
+cursor line.
+With parameter linearea
+the specified number of paragraphs
+or lines are inserted before the cursor line.
+With a marked area and no parameters
+a blank filled area of that shape is
+inserted at the cursor.
+</DL>
+
+<P>
+
+pick [ number ] [ linearea ]
+<BR>
+
+pi        - pick lines or area.
+<DL COMPACT><DT><DD>
+Without parameters the cursor line is put into the pick buffer.
+With number parameter, number lines beginning at the cursor
+are picked.
+With parameter linearea
+the specified number of paragraphs
+or lines are picked.
+With a marked area and no parameters the area is picked.
+The most recently picked information is
+kept in the pick buffer.
+</DL>
+
+<P>
+
+-pick     - insert the contents of the pick buffer.
+<BR>
+
+-p          It is inserted before the line with the cursor for
+<DL COMPACT><DT><DD>
+entire lines, otherwise at the cursor position.
+</DL>
+
+<P>
+
+range [ number ] [ linearea ]
+<BR>
+
+ra        - define a range for search and replace.
+<DL COMPACT><DT><DD>
+Searches and replaces are limited to the defined range.
+Number and linearea specify the range from the
+cursor. One of them must be given unless an area has been
+marked, then the range is the area.
+</DL>
+
+<P>
+
+-range    - turn off previously specified range. The range no longer
+<BR>
+
+-ra         limits searches and replaces, but it remains defined.
+<P>
+
+?range    - show status of range.
+<BR>
+
+?           The status (current or dormant) and extent of the
+<DL COMPACT><DT><DD>
+range is displayed.
+</DL>
+
+<P>
+
+redraw    - redraw the screen.
+<BR>
+
+red         The current screen is redrawn, free of possible messages
+<DL COMPACT><DT><DD>
+not coming from the editor.
+</DL>
+
+<P>
+
+replace [ number ] [ linearea ] [ show | interactive ] /texta/textb/
+<BR>
+
+rep       - replace texta by textb
+<DL COMPACT><DT><DD>
+from cursor and towards the end of the file.
+<BR>
+
+If a number or linearea are given, or if an area has been marked,
+the replacements are restricted to the area, otherwise
+they are made from the cursor position to the end of the file.
+If a range is in effect (set by the range command) the replacements
+are limited to the range.
+<BR>
+
+The show parameter will show the replacements on the screen as they
+take place.
+<BR>
+
+The interactive parameter will cause the command to
+stop when a testa has been found.
+The replacement by textb is then done when the REPL key is pressed,
+and the search for texta is continued when the SCH+ key is pressed.
+A replacement may be skipped by pressing SCH+ instead of REPL.
+<BR>
+
+Show and interactive may be abbreviated down to
+s, and i respectively.
+<BR>
+
+Any character that is not a letter or a digit may be used for delimiting
+texta and texta.
+</DL>
+
+<P>
+
+-replace [ number ] [ linearea ] [ show | interactive ] /texta/textb/
+<BR>
+
+-re       - replace texta by textb
+<DL COMPACT><DT><DD>
+from cursor and towards the beginning of the file.
+<BR>
+
+If a number or linearea are given, or if an area has been marked,
+the replacements are restricted to the area, otherwise
+they are made from the cursor position to the beginning of the file.
+If a range is in effect (set by the range command) the replacements
+are limited to the range.
+<BR>
+
+The show parameter will show the replacements on the screen as they
+take place.
+<BR>
+
+The interactive parameter will cause the command to
+stop when a testa has been found.
+The replacement by textb is then done when the REPL key is pressed,
+and the search for texta is continued when the SCH- key is pressed.
+A replacement may be skipped by pressing SCH- instead of REPL.
+<BR>
+
+Show and interactive may be abbreviated down to
+s, and i respectively.
+<BR>
+
+Any character that is not a letter or a digit may be used for delimiting
+texta and texta.
+</DL>
+
+<P>
+
+regexp    - enter regular expression mode for searching &amp; replacing;
+<BR>
+
+-regexp     exits regular expression mode.
+<DL COMPACT><DT><DD>
+While in regular expression mode, &quot;RE&quot; is displayed at the bottom
+of the screen.
+</DL>
+
+<P>
+
+run text  - execute the text as a UNIX command.
+<BR>
+
+r           If there is a marked area of entire lines
+<DL COMPACT><DT><DD>
+it is given to the command as standard input and is replaced by the
+standard output from the command.
+If there is no marked area the standard output is inserted
+before the line with the cursor.
+The run command is similar to the feed command, except that
+the marked text is deleted and replaced by the results of running the
+command-string.
+</DL>
+
+<P>
+
+save filename
+<BR>
+
+sa        - save a copy of the current file.
+<DL COMPACT><DT><DD>
+The current file including its modifications is copied to filename.
+Filename must be different from the name of the current file.
+</DL>
+
+<P>
+
+set <I>option</I>  used to set various options
+<BR>
+
+?set
+<BR>
+
+<DL COMPACT><DT><DD>
+
+
+
+
+<PRE>
+
++line <I>n</I>	sets the &lt;+line&gt; key to <I>n</I> lines
+-line <I>n</I>	sets the &lt;-line&gt; key to <I>n</I> lines
+line <I>n</I>	sets the &lt;+line&gt; and &lt;-line&gt; keys to <I>n</I> lines
++page <I>n</I>	sets the &lt;+page&gt; key to <I>n</I> screens
+-page <I>n</I>	sets the &lt;-page&gt; key to <I>n</I> screens
+page <I>n</I>	sets the &lt;-page&gt; and &lt;+page&gt; keys to <I>n</I> screens
+?	displays the values of several options (same as the &quot;?set&quot; command)
+bell	enable the bell
+debuglevel <I>n</I>	change the debugging level (within a debugging session),
+level 0 suspend debugging, level != 0 resume.
+nobell 	disable the bell
+hy 	enables splitting of hyphenated words by fill/just
+nohy 	disables splitting of hyphenated words by fill/just (default)
+left <I>n</I>	sets the &lt;window left&gt; key to <I>n</I> cols
+lmar <I>n</I>	sets the left margin to <I>n</I>
+preferences 	save the current setting in the $HOME/.Rand/preferenes file.
+preferences <I>?</I>	display preferences for the current terminal type.
+right <I>n</I>	sets the &lt;window right&gt; key to <I>n</I> cols
+rmar <I>n</I>	sets the right margin (linewidth) to <I>n</I>
+window <I>n</I>	sets the &lt;window left&gt; and &lt;window right&gt; keys to <I>n</I> cols
+width <I>n</I>	sets the linewidth to <I>n</I> cols (for fill, etc.)
+wordelim <I>mode</I>	sets the action of the &lt;+word&gt; and &lt;-word&gt; keys.
+<BR>
+</PRE>
+
+
+If mode is <I>whitespace</I> (the default), words are delimited by blanks
+and newlines, and the cursor advances to the first character following
+the delimiter.
+If mode is <I>alphanum</I>, words are delimited by all
+special characters in addition to blanks and newlines,
+and the cursor advances to the first alphanumeric character
+following the delimiter.
+
+<BR>
+
+<P>
+
+The &quot;line&quot;, &quot;page&quot;, and &quot;window&quot; options may be individually set in
+different windows.
+</DL>
+
+<P>
+
+split     - split the cursor line in two.
+<BR>
+
+sp          The part of the cursor line beginning at the cursor is
+<DL COMPACT><DT><DD>
+moved to the beginning of a line inserted after the cursor line.
+</DL>
+
+<P>
+
+stop      - Use 'job control' to suspend the editor
+<BR>
+
+<DL COMPACT><DT><DD>
+Returns control to the shell, resume with the 'fg' command.
+Works only under Berkeley
+<FONT SIZE="-1">VAX UNIX</FONT>
+versions
+<FONT SIZE="-1">4.1BSD</FONT>
+and
+<FONT SIZE="-1">4.2BSD.</FONT>
+</DL>
+
+<P>
+
+tab [number ... ]
+<BR>
+
+<DL COMPACT><DT><DD>
+- set tabulators.
+</DL>
+
+<DL COMPACT><DT><DD>
+Tabulators are added at the column numbers if specified,
+otherwise at the cursor position.
+</DL>
+
+<P>
+
+-tab [number ... ]
+<BR>
+
+<DL COMPACT><DT><DD>
+- clear tabulators.
+</DL>
+
+<DL COMPACT><DT><DD>
+Tabulators are cleared at the column numbers if specified,
+otherwise at the cursor position.
+</DL>
+
+<P>
+
+tabfile [ filename ]
+<BR>
+
+tabf      - add tabulators from a file.
+<BR>
+
+<DL COMPACT><DT><DD>
+Tabulators are added at positions
+given as integers separated by blanks in the file filename.
+</DL>
+
+<P>
+
+tabs number
+<BR>
+
+<DL COMPACT><DT><DD>
+- set tabulators every number-th column.
+</DL>
+
+<DL COMPACT><DT><DD>
+The first is set in column 1 and they are added to already set tabulators.
+</DL>
+
+<P>
+
+-tabs number
+<BR>
+
+<DL COMPACT><DT><DD>
+- clear tabulators every number-th column.
+</DL>
+
+<DL COMPACT><DT><DD>
+The first is cleared in column 1.
+</DL>
+
+<P>
+
+track     - turn on tracking in the current window.
+<BR>
+
+tr          Tracking means that the window movements
+<DL COMPACT><DT><DD>
+in the current file are reproduced in the alternate file,
+such that when the alternate file is made current its window
+will be positioned as if it had made the movements.
+</DL>
+
+<P>
+
+-track    - turn off tracking in the current window.
+<BR>
+
+-tr
+<P>
+
+update | -update [ inplace | -inplace ]
+<BR>
+
+<DL COMPACT><DT><DD>
+- editor exit control command
+</DL>
+
+<DL COMPACT><DT><DD>
+The update command tells the editor what to do on
+exit with the current file.  The update command
+can be used to specify whether or not to break
+links, the -update command causes any changes to
+the current file to be ignored.
+</DL>
+
+<P>
+
+window [ filename ]
+<BR>
+
+w         - create a window
+<BR>
+
+<DL COMPACT><DT><DD>
+A new window is created as specified by the cursor position
+The cursor must be at the top or left edge of the current window.
+The new window is cut out of the current at the cursor.
+When filename is given the file will be in the window,
+otherwise the current file will be displayed.
+</DL>
+
+<P>
+
+-window   - remove the current window.
+<BR>
+
+-w          note that the first window cannot be removed.
+<P>
+
+wp        - enter &quot;word processing&quot; mode
+<BR>
+
+-wp       - exit &quot;word processing&quot; mode
+<BR>
+
+<DL COMPACT><DT><DD>
+A
+<FONT SIZE="-1">WP</FONT>
+is displayed at the bottom of the screen in word processing mode.
+<FONT SIZE="-1">WP</FONT>
+mode enables power typing or &quot;word wrap&quot;, where any text that is
+entered past the right margin (see &quot;set rmar&quot; above) is automatically
+placed on the following line at the left margin (see &quot;set lmar&quot; above).
+<FONT SIZE="-1">WP</FONT>
+mode also moves the cursor to the left margin in response to a &lt;RETURN&gt;.
+If
+<FONT SIZE="-1">WP</FONT>
+mode is entered while a marked area is in effect, the boundaries of
+the marked area become the left and right margin settings.
+</DL>
+
+<P>
+
+<A NAME="lbAN">&nbsp;</A>
+<H2>FILES</H2>
+
+<A NAME="lbAO">&nbsp;</A>
+<H2><DT>\,filename - comma file.<DD>
+</H2>
+
+<P>
+The file being edited is left
+unchanged until a normal exit is made from the editor.
+The file is then copied onto a file with the same name
+preceded by a , (comma) and thereafter
+the modifications are applied.
+If no modifications are made or at abnormal exits
+(exit with a paramater) the comma file is not produced.
+<BR>
+
+For a file to be changed, it and its directory
+must both have write permission.
+<DT>\.ec1      - change file.<DD>
+All changed text from the file being edited is collected in
+the change file.
+The changed text may be accessed as alternate files
+via the pseudo file names #o and #p,
+and text may be picked from them.
+<BR>
+
+The #o (old lines) file contains all original versions
+of changed lines.
+<BR>
+
+The #p (pick) file contains all picked text.
+Text picked from the #p file is not appended to it.
+<DT>\.ek1 .ek1b  - keystroke files.<DD>
+The files contain all changes made to the files being edited.
+The format is such that the changes can be applied when a normal
+exit is made from the editor.
+<BR>
+
+If an exit is made with parameter dump, or if the editor
+crashes, the keystroke files can be used for recovering
+the lost editing session.
+Recovery is done by invoking the editor without a filename,
+it will then present recovery options to the user.
+The file .ek1b is used in the recovery process.
+<DT>\.es1      - state file.<DD>
+The state file contains information about the last file edited in the
+directory, including file name, the place in the file where the cursor
+were when the editor was terminated, the width value (center, fill, justify),
+the state (insert or normal), the tabulators and the last search string.
+<BR>
+
+When the editor is called without a file name the state file is used
+to recreate the situation that existed at the previous termination.
+</DL>
+<A NAME="lbAP">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+P.Villemoes, Introduction to the Rand Editor, PRIAM/VAX/3
+<P>
+The on line &quot;help&quot; command. A good entry point is the bare &quot;help&quot;.
+On Line &quot;help&quot; is more accurate and provide more complete information.
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">CHANGES</A><DD>
+<DT><A HREF="#lbAF">OPTIONS</A><DD>
+<DT><A HREF="#lbAG">TERMINAL TYPES</A><DD>
+<DT><A HREF="#lbAH">EDITOR FUNCTIONS</A><DD>
+<DT><A HREF="#lbAJ">Terminology</A><DD>
+<DT><A HREF="#lbAJ"><A NAME="lbAJ">&nbsp;</A>
+<H2>Terminology</H2>
+
+</A><DD>
+<DT><A HREF="#lbAK">Terminology</A><DD>
+<DT><A HREF="#lbAL">EDITOR COMMANDS</A><DD>
+<DT><A HREF="#lbAM"><P>
+
+</A><DD>
+<DT><A HREF="#lbAN">FILES</A><DD>
+<DT><A HREF="#lbAO"><DL COMPACT>
+<DT>\,filename - comma file.<DD>
+</A><DD>
+<DT><A HREF="#lbAP">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 15:55:26 GMT, March 05, 2002
+</BODY>
+</HTML>

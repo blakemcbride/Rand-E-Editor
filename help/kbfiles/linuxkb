@@ -1,0 +1,55 @@
+!-----------------------------------------------------------------------------
+! kbfile for linux terminal (console)
+! Fabien Perriollat 2000 Jan 11 : differenciate ctrl H <008> and Bksp <0177>
+!   This file use the new "#include kbfile" directive
+! Fabien Perriollat 2001 May 15 : define the cursor mode to underline
+!-----------------------------------------------------------------------------
+
+#include <vt200kbn>
+
+#!noX11     Do not use the X11 server to check keyboard
+
+# border char for console font 'lat0-sun16'
+# syntax : <symbol>:char_to_be_used
+# 'showcfont' to display the current font
+#  look at e19/term/standard.c, array 'bordersyms' for the symbol list
+#  or at the output of the 'help keymap' command
+<ttmch>:<0xcb>
+<btmch>:<0xca>
+<graphchar>:<1>
+<utf8>:<1>
+
+# Cursor mode setting :
+# Ref to 'consoles_codes' man page and
+#   /etc/termcap file for the linux console entry :
+#       ve=\E[?25h\E[?0c set the cursor to visible underline
+#       vi=\E[?25l\E[?1c set the cursor to invisible
+#       vs=\E[?25h\E[?8c set the cursor to visible block
+
+# kbini : set keyboard mode and set cursor type
+<kbinit>:^["="^["[2l"^["[?25h"^["[?0c"
+
+^C:<int>
+
+! BackSpace key
+<0177>:<bksp>
+
+! Delete key may generate ^H
+! ^H:<dchar>
+
+!Shift F1
+^["[25~":<split>
+!Shift F2
+^["[26~":<join>
+!Shift F3
+^["[28~":<caps>
+!Shift F4
+^["[29~":<ccase>
+!Shift F5
+^["[31~":<cmd><help>
+!Shift F6
+^["[32~":<cmd>
+!Shift F7
+^["[33~":<dword>
+!Shift F8
+^["[34~":<erase>

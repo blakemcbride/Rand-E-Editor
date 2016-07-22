@@ -1,0 +1,103 @@
+# SET APPLICATIONS MODE
+<kbini>:^["="^["[2l"
+^["="^["[2l":<kbini>
+# EXIT APPLICATIONS MODE
+<kbend>:^[">"^["[2l"
+^[">"^["[2l":<kbend>
+#0
+^["Op":<mark>
+#Period
+^["On":<pick>
+#ENTER
+^["OM":<cmd>
+#1
+^["Oq":<-sch>
+#2
+^["Or":<+sch>
+#3
+^["Os":<replace>
+#4
+^["Ot":<-page>
+#5
+^["Ou":<+page>
+#Comma
+^["Ol":<edit>
+#6
+^["Ov":<-tab>
+#7
+^["Ow":<-line>
+#8
+^["Ox":<+line>
+#9
+^["Oy":<int>
+#Minus
+^["Om":<chwin>
+#PF1
+^["OP":<open>
+#PF2
+^["OQ":<close>
+#PF3
+^["OR":<insmd>
+#PF4
+^["OS":<dchar>
+#LEFT ARROW
+^["[D":<left>
+#RIGHT ARROW
+^["[C":<right>
+#UP ARROW
+^["[A":<up>
+#DOWN ARROW
+^["[B":<down>
+#F6
+^["[17~":<edit>
+#F7
+^["[18~":<chwin>
+#F8
+^["[19~":<wleft>
+#F9
+^["[20~":<wright>
+#F10
+^["[21~":<int>
+#F11
+^["[23~":<-word>
+#F12
+^["[24~":<+word>
+#F13
+^["[25~":<-line>
+#F14
+^["[26~":<+line>
+#HELP
+^["[28~":<-sch>
+#DO
+^["[29~":<rep>
+#F17
+^["[31~":<dword>
+#F18
+^["[32~":<ccase>
+#F19
+^["[33~":<split>
+#F20
+^["[34~":<join>
+#FIND
+^["[1~":<+sch>
+#INSERT HERE
+^["[2~":<insmd>
+#REMOVE
+^["[3~":<dchar>
+#SELECT
+^["[4~":<pick>
+#PREV SCREEN
+^["[5~":<-page>
+#NEXT SCREEN
+^["[6~":<+page>
+#RETURN
+^M:<ret>
+#DEL
+<0177>:<bksp>
+#TAB
+^G:<home>
+^I:<+tab>
+^P:<wp>
+^R:<redraw>
+^U:<caps>
+^Z:<cchar>

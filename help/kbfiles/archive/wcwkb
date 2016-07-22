@@ -1,0 +1,71 @@
+<kbini>:^["[78;0;0;1p"^["[74;0;0;22p"^["[76;0;0;27;91;87p"^["[71;0;0;27;91;72p"
+^["[78;0;0;1p"^["[74;0;0;22p"^["[76;0;0;27;91;87p"^["[71;0;0;27;91;72p":<kbini>
+<kbend>:^["[78;0;0;43p"^["[74;0;0;45p"^["[76;0;0;53p"^["[71;0;0;55p"
+^["[78;0;0;43p"^["[74;0;0;45p"^["[76;0;0;53p"^["[71;0;0;55p":<kbend>
+#F1
+^["OP":<-line>
+#F2
+^["OQ":<+line>
+#F3
+^["OR":<wleft>
+#F4
+^["OS":<wright>
+#F5
+^["OT":<-sch>
+#F6
+^["OU":<+sch>
+#F7
+^["OV":<replace>
+#F8
+^["OW":<edit>
+#F9
+^["OX":<mark>
+#F10
+^["OY":<pick>
+#SCROLL LOCK
+^E:<open>
+#HOME (must be programmed)
+^["[H":<home>
+#UP ARROW
+^["OA":<up>
+^["[A":<up>
+#PG UP
+^F:<-page>
+#LEFT ARROW
+^["OD":<left>
+^["[D":<left>
+#5 (must be programmed)
+^["[W":<chwin>
+#RIGHT ARROW
+^["OC":<right>
+^["[C":<right>
+#PRTSC
+^J:<dchar>
+#END
+^N:<int>
+#DOWN ARROW
+^["OB":<down>
+^["[B":<down>
+#PG DN
+^G:<+page>
+#MINUS (must be programmed)
+^V:<close>
+#PLUS (must be programmed)
+^A:<cmd>
+#INS
+^O:<insmd>
+#TAB
+^I:<+tab>
+# Other control sequences
+^K:<-word>
+^L:<+word>
+^R:<redraw>
+^T:<split>
+^Y:<join>
+^U:<ccase>
+^P:<wp>
+^M:<ret>
+^H:<left>
+^Z:<cchar>
+#DEL
+<0177>:<bksp>
