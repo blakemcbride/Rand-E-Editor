@@ -53,6 +53,7 @@
 
 #define SYSIII      /* Unix System III (termios, curses) */
 
+#define XDIR_DIR    "/usr/local/Rand"
 
 /* ANSI C new macro facility */
 #define CAT_dir_file(x,y)  x #y
@@ -62,7 +63,6 @@
 /* Root of the Rand executable package (default default values)
  *  look into dynamicaly generated file : e19/e.r.c for current values
  */
-#define XDIR_DIR    "/usr/local/Rand"
 
 #define RECOVERMSG  FULL_File_path(/recovermsg)
 #define XDIR_KR     FULL_File_path(/kr.)

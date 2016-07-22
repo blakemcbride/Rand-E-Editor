@@ -56,6 +56,12 @@ extern char *ttyname ();
 #define DEFAULT_TABS 4      /* default tabs setting to 4 */
 #define DEFAULT_DebugVal 1
 
+static void clean_all ();
+static void exit_now ();
+static int display_bigbuf ();
+static void check_message_file ();
+static int get_kbfile_dname (char *, char *, int, char **);
+
 
 /* Flags and various data in use by Rand editing session */
 /* ===================================================== */
@@ -747,8 +753,6 @@ char *argv[];
     }
 
     if (helpflg) {
-	static void clean_all ();
-	static void exit_now ();
 	showhelp ();
 	helpflg = NO;
 	clean_all (NO); /* do not delete change and key stroke files */
@@ -2126,7 +2130,6 @@ Flag full_flg;    /* ful dispaly */
     char *pref_name, *stname;
     Flag use_flg;
     void getConsoleSize (int *width, int *height);
-    static int display_bigbuf ();
     int i, nbli, ctrlc, nb, idx;
     char bigbuf [8192]; /* must be large enough for the message */
     char strg [256];
@@ -2332,7 +2335,6 @@ Environment variables known by Rand editor:\n\
     }
 
     if ( helpflg ) {
-	static int get_kbfile_dname (char *, char *, int, char **);
 	S_looktbl *slpt;
 
 	sprintf (bigbuf + strlen (bigbuf), " Build in terminals & keyboards :");
@@ -2378,7 +2380,6 @@ Environment variables known by Rand editor:\n\
     if ( check_access (xdir_dir, R_OK, &tmpstrg) )
 	sprintf (bigbuf + strlen (bigbuf), "    WARNING : %s\n", tmpstrg);
     else {
-	static void check_message_file ();
 	check_message_file (recovermsg, bigbuf);
 	/* check_message_file (xdir_kr   , bigbuf);  -- no more in use */
 	check_message_file (xdir_help , bigbuf);

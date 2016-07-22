@@ -34,6 +34,18 @@ extern char * get_debug_name ();
 extern Flag get_xterm_name (char **class_pt, char ** name_pt);
 extern int  itswapdeldchar (char *, int, int *);
 extern char * get_myhost_name ();
+extern void set_info_level (int level);
+extern void fresh ();
+extern Flag set_reset_utf8 (Flag);
+extern Flag set_reset_graph (Flag);
+extern char * get_debug_name ();
+static void save_preferences ();
+extern int open_dbgfile (Flag append_flg);
+extern int get_debug_default_level ();
+extern void reset_ctrlc ();
+extern char * help_cmd_str ();
+static Cmdret call_help (char *);
+static int comp_alpha_looktb (S_looktbl *obj1, S_looktbl *obj2);
 
 extern Flag inputcharis7bits;
 extern Flag fill_hyphenate;
@@ -490,7 +502,6 @@ static struct _class_cmd {
 void init_all_lookup_tables ()
 /* does not return in case of error */
 {
-    static int comp_alpha_looktb (S_looktbl *obj1, S_looktbl *obj2);
     static Flag done = NO;
     int i, nb, cc;
     struct _lookup_table *ltbl;
@@ -929,9 +940,6 @@ static int help_argu_para ( struct _class_cmd * class_cmd_pt, char *txt)
 
 static Flag parameter_help (int cmdval, char * cmdname, Cmdret *retval_pt)
 {
-    extern void reset_ctrlc ();
-    extern char * help_cmd_str ();
-    static Cmdret call_help (char *);
     int i, cc;
     struct _class_cmd * class_cmd_pt;
     char txt[256];
@@ -2375,15 +2383,6 @@ Cmdret
 setoption ( showflag )
   int showflag;
 {
-    extern void set_info_level (int level);
-    extern void fresh ();
-    extern Flag set_reset_utf8 (Flag);
-    extern Flag set_reset_graph (Flag);
-    extern char * get_debug_name ();
-    static void save_preferences ();
-    extern int open_dbgfile (Flag append_flg);
-    extern int get_debug_default_level ();
-
     int cc;
     char *ternm, *dbgfname;
     char *arg;

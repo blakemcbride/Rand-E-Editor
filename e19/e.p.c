@@ -54,7 +54,7 @@ printchar ()
     if (!okwrite ())
 	return NOWRITERR;
 
-    getline (ln = curwksp->wlin + cursorline);
+    egetline (ln = curwksp->wlin + cursorline);
 
     curcol = cursorcol + curwksp->wcol;
     if (key == CCDELCH || key == CCBACKSPACE) {
@@ -101,11 +101,11 @@ printchar ()
 #ifdef LMCAUTO
 	    if (!autofill || (autofill && curcol <= linewidth)) {
 		horzmvwin (defrwin);
-		getline (ln);
+		egetline (ln);
 	    }
 #else
 	    horzmvwin (defrwin);
-	    getline (ln);
+	    egetline (ln);
 #endif
 	}
 #endif
@@ -172,7 +172,7 @@ printchar ()
 	cursorline -= nl;
 	movewin (curwksp->wlin + nl, curwksp->wcol - nc,
 	  cursorline, curcol, YES);
-	getline (curwksp->wlin + cursorline + 1);
+	egetline (curwksp->wlin + cursorline + 1);
 	poscursor (curcol, cursorline + 1);
 	x = CROK;
     }
@@ -249,7 +249,7 @@ int nwords;
     Reg5 int i;
 
     curcol = cursorcol + curwksp->wcol;
-    getline (ln = curwksp->wlin + cursorline);
+    egetline (ln = curwksp->wlin + cursorline);
     if (curcol > ncline)
 		curcol = ncline;
     if (dir == 1){
@@ -263,7 +263,7 @@ int nwords;
 		    if (++ln >= la_lsize (curlas))
 			return CROK;
 		    else{
-			getline(ln);
+			egetline(ln);
 			curcol = 0;
 		    }
 		}
@@ -278,7 +278,7 @@ int nwords;
 		    if (--ln <  0)
 			return CROK;
 		    else{
-			getline(ln);
+			egetline(ln);
 			curcol = ncline - 1;
 		    }
 		}
@@ -426,14 +426,14 @@ dodword (ind)
     Nlines sav_clineno;
 
     curcol = cursorcol + curwksp->wcol;
-    getline (ln = curwksp->wlin + cursorline);
+    egetline (ln = curwksp->wlin + cursorline);
     if (ind) {
 	/* get a line that has *something* on it. */
 	while (curcol >= ncline - 1) {
 	    if (++ln >= la_lsize (curlas))
 		return CROK;
 	    else{
-		getline(ln);
+		egetline(ln);
 		curcol = 0;
 	    }
 	}
@@ -450,7 +450,7 @@ dodword (ind)
 		    if (++ln >= la_lsize (curlas))
 			return CROK;
 		    else{
-			getline(ln); /* this shouldn't ever happen, but...*/
+			egetline(ln); /* this shouldn't ever happen, but...*/
 			curcol = 0;
 		    }
 		}
@@ -491,7 +491,7 @@ dodword (ind)
 	/*
 	 *  At this point, the word has been deleted from
 	 *  'cline'.  But, since the following 'movecursor' calls
-	 *  may result in a 'putup' (and calls to getline),
+	 *  may result in a 'putup' (and calls to egetline),
 	 *  the changed line never gets written out before it
 	 *  is reread from disk.  To fix, set fcline here.
 	 */
@@ -509,10 +509,10 @@ dodword (ind)
 	    movecursor(DN, ln - cwln);
 	/*
 	 * Since one of the above movecursor calls may result
-	 * in a putup() call, repeat the getline() here.
+	 * in a putup() call, repeat the egetline() here.
 	 */
 	if (clineno != sav_clineno)
-	    getline(ln);
+	    egetline(ln);
     } else {           /* ind=NO ==> restore the last deleted word */
 	if ( ! deletdwd ) return CROK;
 

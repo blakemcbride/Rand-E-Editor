@@ -23,6 +23,7 @@ extern Flag reset_impl_tick ();
 extern Cmdret remove_file (Fn fn);
 
 static Fn getnxfn ();
+static char *ReadSymLink (char *);
 
 /* variables used to list the edited file */
 static int term_width, term_height; /* current display size */
@@ -473,7 +474,6 @@ Flag    puflg;
      */
     Block {
 	char *cp;
-	static char *ReadSymLink (char *);
 
 	cp = ReadSymLink (file);
 	if (cp == NULL) {
@@ -667,7 +667,7 @@ editit:
 #endif
     if (puflg) {
 	if (newfn == OLDLFILE)
-	    getline (-1);   /* so that the last line modified will show up */
+	    egetline (-1);   /* so that the last line modified will show up */
 	putupwin ();
     }
     limitcursor ();

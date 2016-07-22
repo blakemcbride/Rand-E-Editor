@@ -43,22 +43,22 @@ file e.la.c
 
 #include SIG_INCL
 
-void getline ();
+void egetline ();
 void chkcline ();
 void excline ();
 
 #ifdef COMMENT
 void
-getline (ln)
+egetline (ln)
     Nlines  ln;
 .
     Gets line ln of the current workspace into cline.
     If (ln < 0) then flush cline if modified
-      and set clinelas to 0 so that the next call to getline is
+      and set clinelas to 0 so that the next call to egetline is
       guaranteed to get a fresh copy of the line desired from the file.
 #endif
 void
-getline (ln)
+egetline (ln)
 Nlines  ln;
 {
     Reg5 char *clp;     /* cline pointer */

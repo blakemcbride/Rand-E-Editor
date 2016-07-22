@@ -54,6 +54,8 @@
 #include <sys/types.h>
 #endif
 
+#include <stdlib.h>
+
 #include <la.h>     /* ff.h is included by la.h */
 
 /* IMPORTANT: NOFILE is defined in ff.h -- BE SURE it is the true number of
@@ -951,7 +953,6 @@ extern void fixtty ();
 extern void flushkeys ();
 extern void fresh ();
 extern void getarg ();
-extern void getline ();
 extern void getpath ();
 extern void gotomvwin ();
 extern void igsig ();

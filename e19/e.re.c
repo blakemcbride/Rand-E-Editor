@@ -104,11 +104,11 @@ Flag srch;      /* if NO, then only look at current position */
 	if (delta > 0)
 	    goto pret;
 	ln = la_lsize (curlas) - 1;
-	getline (ln);
+	egetline (ln);
 	at = &cline[ncline];        /* past end (delta is < 0) */
     }
     else {
-	getline (ln);
+	egetline (ln);
 	/*
 	 *  If pattern is "^$" and already at a blank line, start at
 	 *  next/previous line.  If that line is blank, found it.
@@ -117,12 +117,12 @@ Flag srch;      /* if NO, then only look at current position */
 	    if (delta > 0) {
 		if (++ln >= la_lsize (curlas))
 		    goto pret;
-		getline (ln);
+		egetline (ln);
 	    }
 	    else {
 		if (--ln < 1)
 		    goto pret;
-		getline (ln);
+		egetline (ln);
 	    }
 	    if (ncline == 1) {      /* blank line */
 		retval = FOUND_SRCH;
@@ -164,7 +164,7 @@ Flag srch;      /* if NO, then only look at current position */
 		retval = NOTFOUND_SRCH;
 		goto pret;
 	    }
-	    getline (ln);
+	    egetline (ln);
 	    cline[ncline - 1] = '\0';
 	    at = cline;
 	}
@@ -202,7 +202,7 @@ Flag srch;      /* if NO, then only look at current position */
 	       )
 	   )
 	    break;
-	getline (ln);
+	egetline (ln);
 	at = cline;
 	cline[ncline - 1] = '\0';
     }
@@ -248,7 +248,7 @@ Flag    curpos_only;
 	if (delta > 0) {        /* forward search */
 	    if (ln >= la_lsize (curlas))
 		return NOTFOUND_SRCH;
-	    getline (ln);
+	    egetline (ln);
 	    if (ch == '$') {
 		if (curpos_only) {              /* repl interactive */
 		    if (stcol == ncline - 1)
@@ -262,7 +262,7 @@ Flag    curpos_only;
 			return NOTFOUND_SRCH;
 		    if (++ln > limit)
 			return NOTFOUND_SRCH;
-		    getline (ln);
+		    egetline (ln);
 		}
 		srchline = ln;
 		srchcol = ncline - 1;
@@ -282,7 +282,7 @@ Flag    curpos_only;
 		    if (++ln > limit)
 			return NOTFOUND_SRCH;
 		first_repl_line = NO;
-		getline (ln);
+		egetline (ln);
 		srchline = ln;
 		srchcol = 0;
 	    }
@@ -303,7 +303,7 @@ Flag    curpos_only;
 			stcol = ncline;
 		}
 	    }
-	    getline (ln);
+	    egetline (ln);
 
 	    if (ch == '$') {
 		if (curpos_only) {              /* repl interactive */
@@ -316,7 +316,7 @@ Flag    curpos_only;
 		if (stcol < ncline) {
 		    if (ln == 0 || --ln < limit)
 			return NOTFOUND_SRCH;
-		    getline (ln);                   /* previous line */
+		    egetline (ln);                   /* previous line */
 		}
 		srchline = ln;
 		srchcol = ncline - 1;
@@ -332,7 +332,7 @@ Flag    curpos_only;
 		if (stcol == 0 && !first_repl_line) {
 		    if (ln == 0 || --ln < limit)
 			return NOTFOUND_SRCH;
-		    getline (ln);                   /* previous line */
+		    egetline (ln);                   /* previous line */
 		}
 		first_repl_line = NO;
 		srchline = ln;

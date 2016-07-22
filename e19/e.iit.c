@@ -17,6 +17,7 @@ file e.iit.c
 extern Flag helpflg, verbose_helpflg, dbgflg;
 extern char *salloc();
 static void itadd ();
+static Flag itparse ();
 
 int kbfile_wline = 0;   /* line number of a duplicated string */
 
@@ -418,7 +419,6 @@ char *filename;
 int level;
 {
     extern void customize_xlate ();
-    static Flag itparse ();
 
     char line[TMPSTRLEN], string[TMPSTRLEN], value[TMPSTRLEN];
     FILE *f;

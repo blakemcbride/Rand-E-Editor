@@ -466,7 +466,7 @@ Flag puflg;
 	rpls2len = strlen(rpls2);               /* get the length */
     }
 
-    getline (slin); /* we DO need this */
+    egetline (slin); /* we DO need this */
     /* adjust cline to accept the replacement string */
     if ((wdelta = rpls2len - rpls1len) > 0)
 	putbks (scol, wdelta);
@@ -689,10 +689,10 @@ Flag srch;      /* if NO, then only look at current position */
 	    goto ret;
 	ln = la_lsize (curlas);
 	at = cline;
-	getline (ln);
+	egetline (ln);
     }
     else {
-	getline (ln);
+	egetline (ln);
 	at = &cline[min (ncline - lkey, stcol)];
     }
     if (starthere)
@@ -723,7 +723,7 @@ Flag srch;      /* if NO, then only look at current position */
 		   )
 	       )
 		goto ret;
-	    getline (continln);
+	    egetline (continln);
 	    at = cline;
 	    if (nextline)
 		break;

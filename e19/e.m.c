@@ -172,7 +172,7 @@ void update_info_line ()
 		sprintf (ich, "%5dx%d", nline, ncol);
 	} else {
 	    /* display char code */
-	    if ( clineno != (nline-1) ) getline (nline-1);
+	    if ( clineno != (nline-1) ) egetline (nline-1);
 	    if ( ncol <= ncline ) {
 		ch = (unsigned char) cline[ncol-1];
 		switch (at_info_level) {
@@ -799,7 +799,7 @@ gotcmd:
 		    /* donetype can only be 0 */
 		    Block {
 			Reg2 Ncols k;
-			getline (curwksp->wlin + cursorline);
+			egetline (curwksp->wlin + cursorline);
 			if ((k = ncline - 1 - curwksp->wcol - cursorcol) > 0) {
 			    donetype = ed (OPERASE, QERASE,
 					   curwksp->wlin + cursorline,
@@ -876,7 +876,7 @@ gotcmd:
 			    break;
 
 			case CCMOVERIGHT:
-			    getline (curwksp->wlin + cursorline);
+			    egetline (curwksp->wlin + cursorline);
 			    if ((lns = ncline - 1 - (curwksp->wcol + cursorcol))
 				  > 0)
 				lns = min (lns, curwin->rtext - cursorcol);

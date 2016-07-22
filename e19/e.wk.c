@@ -29,7 +29,7 @@ void
 switchfile ()
 {
     if (curwin->altwksp->wfile == OLDLFILE)
-	getline (-1);   /* so that the last line modified will show up */
+	egetline (-1);   /* so that the last line modified will show up */
     if (!swfile ())
 	mesg (ERRALL + 1, "No alternate file");
     return;

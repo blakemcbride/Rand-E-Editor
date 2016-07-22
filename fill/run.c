@@ -11,6 +11,7 @@
 #endif
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #define NBUF (BUFSIZ * 8)
 

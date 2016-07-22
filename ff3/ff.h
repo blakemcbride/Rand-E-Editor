@@ -11,8 +11,7 @@ file            ff.h
 
 #include <stdio.h>
 #include <limits.h>
-
-extern int      errno;
+#include <errno.h>
 
 #define FF_BSIZE   BUFSIZ	/* Size of a FF block */
 

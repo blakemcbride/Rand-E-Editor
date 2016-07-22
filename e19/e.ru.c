@@ -404,7 +404,7 @@ Flag    safe;       /* OK for program to write directly on changes file */
      * we must do it now, not after we have written onto the end of the
      * changes file or the new stuff might get clobbered with zeros
      **/
-    getline (-1);   /* flush so that file will be its full size */
+    egetline (-1);   /* flush so that file will be its full size */
     ff_flush (la_chgffs);
 
     chgend = ff_seek (la_chgffs, (long) 0, 2);
@@ -743,7 +743,7 @@ Flag    puflg;          /* putup when done */
 	return YES;
     }
 
-    getline (-1);
+    egetline (-1);
     if ((endgap = from - (lsize = la_lsize (curlas))) > 0) {
 	if (!extend (endgap)) {
 	    mesg (ERRALL + 1, "Can't extend the file");

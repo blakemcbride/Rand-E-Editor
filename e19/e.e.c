@@ -90,12 +90,12 @@ Flag    puflg;
     if (line >= la_lsize (curlas))
 	return CROK;
 
-    getline (line);     /* must do this to set ncline */
+    egetline (line);     /* must do this to set ncline */
     if (col >= ncline - 1)
 	return CROK;
 
     /* append or insert nl blank lines after line */
-    getline (-1);
+    egetline (-1);
     if (line == la_lsize (curlas) - 1) {
 	if (!extend (nl)) {
 	    mesg (ERRALL + 1, "Can't extend the file");
@@ -110,7 +110,7 @@ Flag    puflg;
 	}
     }
     /* shorten the first line */
-    getline (line);         /* yes, we must do it again */
+    egetline (line);         /* yes, we must do it again */
     Block {
 	Reg4 Ncols  nsave;
 	Reg5 Char   csave;
@@ -210,12 +210,12 @@ Flag    puflg;
     Reg2 Nlines ln;
     Ncols newc;
 
-    getline (line);
+    egetline (line);
     if (col <= ncline)
 	col = ncline;
     for (ln = line + 1; ;ln++) Block {
 	Reg1 char *cp;
-	getline (ln);
+	egetline (ln);
 	if (xcline)
 	    return CROK;
 	for (cp = cline; *cp == ' ' || *cp == '\t'; cp++)
@@ -264,7 +264,7 @@ Ncols   newc;
 Flag    saveflg;
 Flag    puflg;
 {
-    getline (-1);   /* flush so that file will be its full size */
+    egetline (-1);   /* flush so that file will be its full size */
     Block {
 	Reg1 Nlines lsize;
 	if (line >= (lsize = la_lsize (curlas)))
@@ -279,7 +279,7 @@ Flag    puflg;
 	Reg2 Ncols nl2;
 
 	/* Save the end of the last line into an array. */
-	getline (line + nl);
+	egetline (line + nl);
 	if ((nl2 = ncline - newc) > 1) {
 	    /* get the end of the lower line */
 	    l2 = salloc ((int) nl2, YES);
@@ -291,7 +291,7 @@ Flag    puflg;
 	    ncline = newc + 1;
 	    fcline = YES;
 	    /* Save the beginning of the first line into an array, */
-	    getline (line);
+	    egetline (line);
 	    if ((nl1 = min (col, ncline - 1)) > 0) {
 		l1 = salloc ((int) nl1, YES);
 		move (cline, l1, (Uint) nl1);
@@ -307,7 +307,7 @@ Flag    puflg;
 	    /*? check ret val from ed */
 	    ed (OPPICK, QCLOSE, line, (Ncols) 0, nl + 1, (Ncols) 0, NO);
 	}
-	getline (line);
+	egetline (line);
 	if (col + nl2 > lcline)
 	    excline (col + nl2);
 	if (saveflg) {
@@ -361,7 +361,7 @@ chgcase (xabs)
     if (curmark)
 	return edmark (xabs ? OPCAPS : OPCCASE, QNONE);
     else {
-	getline (curwksp->wlin + cursorline);
+	egetline (curwksp->wlin + cursorline);
 	curcol = cursorcol + curwksp->wcol;
 	if (curcol < ncline - 1) {
 	    ch = cline [curcol];
@@ -565,7 +565,7 @@ Flag puflg;
 	}
     }
 
-    getline (-1);   /* flush so that file will be its full size */
+    egetline (-1);   /* flush so that file will be its full size */
     endgap = line - (lsize = la_lsize (curlas));
     if (opc & (OPQFROM | OPBOX)) {
 	if (   endgap > 0
@@ -835,9 +835,9 @@ Flag puflg;
 	for (itmp = 0; itmp < nlines; itmp++) Block {
 	    Reg1 char *cp;
 	    Reg2 Ncols j;
-	    getline (line + itmp);
+	    egetline (line + itmp);
 	    if ((j = (ncline - col)) > 0) {
-		getline (-1);    /* because we are about to corrupt cline */
+		egetline (-1);    /* because we are about to corrupt cline */
 		j = min (j, ncols);
 		(cp = &cline[col])[j] = '\n';
 		nn = la_lcollect (collect, cp, (int) dechars (cp));
@@ -877,7 +877,7 @@ Flag puflg;
 		if (buf != QBOX) Block {
 		    Reg1 Ncols j;
 		    curlas = &qlas;
-		    getline (bufline + itmp);
+		    egetline (bufline + itmp);
 		    curlas = olas;
 		    if (min (ncols, ncline) > 0)
 			move (cline, linebuf, (Uint) min (ncols, ncline));
@@ -908,8 +908,8 @@ Flag puflg;
 		}
 	    }
 
-	    getline (line + itmp);
-	    getline (-1);  /* because we are about to do a dechars on cline */
+	    egetline (line + itmp);
+	    egetline (-1);  /* because we are about to do a dechars on cline */
 
 	    if (   (opc & (OPQFROM | OPBOX))
 		|| col < ncline

@@ -1,0 +1,14 @@
+*.o
+*~
+*.a
+.ec1
+.ek1
+.es1
+.ek1b
+e19/e.r.c
+e19/e
+fill/center
+fill/fill
+fill/run
+scratch
+

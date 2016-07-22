@@ -29,7 +29,6 @@ file e.t.c
 #undef EMPTY
 #endif
 
-
 #ifdef TESTRDNDELAY
 # undef EMPTY
 # define RDNDELAY
@@ -446,7 +445,7 @@ Scols   ncols;      /* number of columns for partial line redraw */
 		needputup = YES;
 		break;
 	    }
-	    getline (curwksp->wlin + ln);
+	    egetline (curwksp->wlin + ln);
 	    if (xcline) {
 		offendflg = YES;
 		lmc = ELMCH;
@@ -985,7 +984,7 @@ Flag wt;
 	return;
     if (curfile != NULLFILE) {
 	Reg1 Ncols charpos;
-	getline (cursorline + curwksp->wlin);
+	egetline (cursorline + curwksp->wlin);
 	bulsave = (charpos = cursorcol + curwksp->wcol) < ncline - 1
 		  ? (cline[charpos] & CHARMASK)
 		  : ' ';
@@ -3400,7 +3399,7 @@ int *len;
 
     olas = curlas;
     curlas = &wksp->las;
-    getline (line);
+    egetline (line);
     curlas = olas;
     if (col >= ncline - 1 || cline[col] == ' ')
 	return NULL;

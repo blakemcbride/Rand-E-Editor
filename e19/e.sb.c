@@ -554,8 +554,6 @@ char *
 okalloc (n)
 int n;
 {
-    extern char *calloc ();
-
     return calloc ((unsigned) n, 1);
 }
 
@@ -576,7 +574,6 @@ int n;
 Flag fatalflg;
 {
     register char  *cp;
-    extern char *calloc ();
 
     n = (n+15)/8;
     if ((cp = calloc ((unsigned) n , 8)) == NULL) {

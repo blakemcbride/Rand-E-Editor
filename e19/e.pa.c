@@ -33,6 +33,7 @@ extern S_looktbl gototable [];
 extern S_looktbl filltable [];
 extern S_looktbl filetable [];
 extern S_looktbl updatetable [];
+static int longest_cmd (char *, S_looktbl *, int);
 
 static struct _lookuptbl_comment {
     S_looktbl *table;
@@ -422,7 +423,6 @@ int check_keyword (char *keyword, int pos,
 
     if ( max_flg ) {
 	/* found the longest keyword string */
-	static int longest_cmd (char *, S_looktbl *, int);
 	idx1 = longest_cmd (kwd, table, table[idx].val);
 	if ( idx1 >= 0 ) idx = idx1;
     }

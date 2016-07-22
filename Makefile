@@ -259,7 +259,7 @@ endif
 
 
 clean:
-	rm -f ,* a.out core .e?[1-9] .e?[1-9].*
+	rm -f ,* e core .e?[1-9] .e?[1-9].*
 	for f in fill la1 ff3 lib e19; do cd $$f; rm -f ,* .e?[1-9] .e?[1-9].*; $(MAKE) clean; cd ..; done
 	for f in include help doc; do cd $$f; rm -f ,* .e?[1-9] .e?[1-9].*; cd ..; done
 	for f in help/kbfiles; do cd $$f; rm -f ,* .e?[1-9] .e?[1-9].*; cd ../..; done
@@ -277,18 +277,18 @@ preinstall:
 	@/bin/rm -f $(KBFDIR)/vt200kbn $(KBFDIR)/linuxkb
 	$(INSTALL) -m 444 help/kbfiles/vt200kbn $(KBFDIR)
 	$(INSTALL) -m 444 help/kbfiles/linuxkb $(KBFDIR)
-	(cd $(KBFDIR); ln -s vt200kbn ./universalkb)
-	(cd $(KBFDIR); ln -s vt200kbn ./xtermkb)
-	(cd $(KBFDIR); ln -s vt200kbn ./nxtermkb)
+	(cd $(KBFDIR); ln -sf vt200kbn ./universalkb)
+	(cd $(KBFDIR); ln -sf vt200kbn ./xtermkb)
+	(cd $(KBFDIR); ln -sf vt200kbn ./nxtermkb)
 
-install:
+install: preinstall
 	@-/bin/rm -f $(TARGETDIR)/bin/e19
 	@/bin/rm -f $(LIBDIR)/e19 $(LIBDIR)/fill $(LIBDIR)/run $(LIBDIR)/center $(LIBDIR)/just
-	$(INSTALL) --strip e19/a.out $(LIBDIR)/e19.$(RELEASE)
+	$(INSTALL) --strip e19/e $(LIBDIR)/e19.$(RELEASE)
 	$(INSTALL) --strip fill/fill fill/run fill/center $(LIBDIR)
-	(cd $(LIBDIR); ln -s fill ./just)
-	(cd $(LIBDIR); ln -s ./e19.$(RELEASE) ./e19)
-	-(cd $(TARGETDIR)/bin; ln -s ../$(PKGDIR)/e19 ./$(PROG))
+	(cd $(LIBDIR); ln -sf fill ./just)
+	(cd $(LIBDIR); ln -sf ./e19.$(RELEASE) ./e19)
+	-(cd $(TARGETDIR)/bin; ln -sf ../$(PKGDIR)/e19 ./$(PROG))
 
 depend:
 	for f in fill la1 ff3 lib e19; do cd $$f; $(MAKE) TARG_OS=$(TARG_OS) depend; cd ..; done

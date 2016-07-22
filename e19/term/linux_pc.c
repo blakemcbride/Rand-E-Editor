@@ -99,6 +99,10 @@ typedef char Flag;
 #define K_HOLE -1
 #endif
 
+static void print_keys (char *escp, Flag *nl_pt);
+static Flag build_escape_seq (char ch, char *escp, int idx);
+static char * kcode2string (int, unsigned int, Flag, Flag, int *, char **, char **);
+
 
 extern Flag verbose_helpflg;                /* from e.c */
 extern Flag noX11flg;
@@ -463,6 +467,10 @@ struct _all_ktdesc {
     struct KTdesc **ktdesc_array;   /* pointer to the descriptor array */
     int *ktdesc_nb;         /* number of elements in the array */
     };
+
+
+static void switch_mode (struct KTdesc *, int, Flag);
+
 
 /* Terminal related global variables */
 /* --------------------------------- */
@@ -1260,7 +1268,6 @@ static char * get_linux_ktspec_strg (int ktcode, char **tcap_strg)
 	case K_NUM :
 	    if ( ! keypad_appl_mode ) return (NULL);
 	    break;
-	default :
 	}
     strg = get_kt_strg (ktcode, NULL);
     return (strg);
@@ -1753,8 +1760,6 @@ static char * get_ktcode2strg (int ktcode, char **tcap_strg, unsigned int shift)
 
 static void set_cursor_mode ()
 {
-    static void switch_mode (struct KTdesc *, int, Flag);
-
     switch ( kbmap_type ) {
 	case user_mapfile :
 	    return;
@@ -3421,8 +3426,6 @@ static Flag nxterm_special_case (int ktf, char *strg)
 static char * string2key_label (char *strg, int *key, int *idx,
 				int *shift, char **modstrg)
 {
-    static char * kcode2string (int, unsigned int, Flag, Flag, int *, char **, char **);
-
     int i, j;
     int ktf;
     char *ktstrg;
@@ -3594,9 +3597,6 @@ static char * kcode2string (int kcode, unsigned int shift,
 
 static void checkkeyb (Flag echo)
 {
-    static void print_keys (char *escp, Flag *nl_pt);
-    static Flag build_escape_seq (char ch, char *escp, int idx);
-
     static char msg[] = "type \"Ctrl C\" exit, \"Ctrl A\" switch App mode, \"Ctrl B\" switch cusor mode\n";
     static char int_msg[] = " Interrupted control sequence\n";
     Flag app_mode, alt_cursor_mode;

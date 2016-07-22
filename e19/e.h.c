@@ -18,6 +18,24 @@ file e.h.c
 #endif
 
 void print_sort_table (S_lookstruct *);
+static int print_alias_table (S_lookstruct *);
+static int browse_cmdhelp  (char *, char *);
+static int browse_keyfhelp (char *, char *);
+extern void set_alt_resize (void (* my_resize) (int width, int height, void *para), void *para);
+extern void switch_ctrlc ();
+extern void all_ctrl_key_by_func (char *msg, int msg_sz, int fcmd);
+static int waitkb (short);
+extern char * itsyms_by_val (short val);
+extern void ignore_quote ();
+static int help_description ();
+extern void showstatus ();
+extern int set_crlf ();
+extern void reset_crlf ();
+extern void check_keyboard ();
+extern char verstr[];
+extern S_looktbl itsyms[];
+extern void set_ambiguous_param (S_looktbl *table, char *str, Flag abv);
+static Cmdret show_ambiguous ();
 
 /* these 2 values are primarily defined in e.it.h */
 #define KBINIT  040     /* Must not conflict with CC codes */
@@ -43,9 +61,6 @@ static void (*resize_param) (int *, int *) = NULL;  /* get current term size */
 
 static void browse_keyboard (char *msg)
 {
-    extern char * itsyms_by_val (short val);
-    extern void ignore_quote ();
-    static int help_description ();
     char blank [128];
     char *str;
     int qq, ctrlc, sz, nbli;
@@ -414,7 +429,6 @@ Flag funcval_flg;
 static Cmdret keyfunc_ibmpc (helparg)
 char *helparg;
 {
-    extern void all_ctrl_key_by_func (char *msg, int msg_sz, int fcmd);
     extern Flag verbose_helpflg;
     extern S_looktbl itsyms[];
     int idx, sz;
@@ -655,8 +669,6 @@ char *helparg, *nextarg;
 {
     extern char *nxtop;
     extern S_looktbl cmdtable[];
-    static int browse_cmdhelp  (char *, char *);
-    static int browse_keyfhelp (char *, char *);
     extern int get_ctrlc_fkey ();
 
 static char stmsg [] = "\n\
@@ -677,14 +689,6 @@ Now press a key (or keys combination) for description of the assigned action.\
     int col, lin, nbli, nb, sz, ctrlc;
     Flag ctrlc_flg;
 
-    extern void showstatus ();
-    extern int set_crlf ();
-    extern void reset_crlf ();
-    extern void check_keyboard ();
-    extern char verstr[];
-    extern S_looktbl itsyms[];
-    extern void set_ambiguous_param (S_looktbl *table, char *str, Flag abv);
-    static Cmdret show_ambiguous ();
     Cmdret help_ambiguous (Flag *ctrlc_flg_pt, Flag ambig_flg);
 
     if (   (helparg == NULL) || (*helparg == '\0')
@@ -1184,8 +1188,6 @@ static char * get_all_aliases (S_lookstruct *tblstruct, int cmd_val, Flag sep_fl
 
 static int browse_sortedtbl (S_lookstruct *tblstruct, char * mystr, char *waitmsg)
 {
-    static int waitkb (short);
-
     char *all_aliases;
     int nb, i, di, idx, cmd_val, cc;
     char *str, *cmd_str;
@@ -1365,8 +1367,6 @@ static void resize_update_msg (int width, int height, void *para)
 
 int wait_keyboard (char *msg, int *gk_pt)
 {
-    extern void set_alt_resize (void (* my_resize) (int width, int height, void *para), void *para);
-    extern void switch_ctrlc ();
     int qq;
     char str [256], *strg;
     int width, height;
@@ -1572,7 +1572,6 @@ static int check_columns_size ( S_looktbl *(*table)[], int table_sz,
 
 void print_sort_table (S_lookstruct *tblstruct)
 {
-    static int print_alias_table (S_lookstruct *);
     char *cmt1, *cmt2;
     int width, height;
     int i, sz;
